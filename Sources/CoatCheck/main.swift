@@ -3,6 +3,7 @@ import SwiftUI
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let preferences = Preferences()
+    private let updater = Updater()
     private var menuBar: MenuBarController?
     private var settingsWindow: NSWindow?
 
@@ -24,7 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
 
-    private func checkForUpdates() {}
+    private func checkForUpdates() { updater.checkForUpdates() }
 
     private func showSettings() {
         if settingsWindow == nil {
