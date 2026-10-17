@@ -6,6 +6,8 @@
 	<string>Coat Check</string>
 	<key>CFBundleExecutable</key>
 	<string>CoatCheck</string>
+	<key>CFBundleIconFile</key>
+	<string>CoatCheck</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.coatcheckformac.CoatCheck</string>
 	<key>CFBundleName</key>
