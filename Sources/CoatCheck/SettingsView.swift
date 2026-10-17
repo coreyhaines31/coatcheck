@@ -16,17 +16,22 @@ struct SettingsView: View {
                         .frame(width: 40)
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Check the icons you don’t need right now").font(.headline)
-                        Text("Hold ⌘ and drag menu bar icons to the left of the │ divider. "
-                             + "Click the hanger to check them, and click it again to get them back.")
+                        Text("Icons to the left of the │ divider get checked. Hold ⌘ and drag the ones "
+                             + "you always want to see to the right of it, next to the hanger.")
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
-                        Text("Right-click the hanger for settings and updates.")
+                        Text("Click the hanger to check icons or get them back. Right-click it for settings.")
                             .foregroundStyle(.secondary)
                     }
                 }
                 .padding(.vertical, 4)
             }
             Section {
+                Toggle(isOn: $preferences.hideOnLaptopScreen) {
+                    Text("Check icons on the laptop screen")
+                    Text("The notch leaves little room when the built-in display is the only one. "
+                         + "Coat Check checks icons then and brings them back when an external display connects.")
+                }
                 Picker("After showing icons, check them again", selection: $preferences.autoHideDelay) {
                     ForEach(AutoHideDelay.allCases) { delay in Text(delay.title).tag(delay) }
                 }
