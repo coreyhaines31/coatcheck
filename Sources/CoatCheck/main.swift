@@ -21,7 +21,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         preferences.applyLaunchAtLoginDefault()
         screens.onChange = { [weak self] now, previously in self?.applyScreenRule(now: now, previously: previously) }
         screens.start()
-        hideOnLaptopObserver = preferences.$hideOnLaptopScreen.dropFirst().sink { [weak self] enabled in
+        // @Published sends before the new value is stored, so read it on the next pass.
+        hideOnLaptopObserver = preferences.$hideOnLaptopScreen.dropFirst().receive(on: DispatchQueue.main).sink { [weak self] enabled in
             guard let self, enabled else { return }
             applyScreenRule(now: screens.laptopScreenOnly, previously: nil)
         }
