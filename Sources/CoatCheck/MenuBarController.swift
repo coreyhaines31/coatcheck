@@ -3,9 +3,8 @@ import CoatCheckCore
 
 /// The Coat Check icon and the divider to its left. Icons dragged left of the divider are the checked ones.
 final class MenuBarController: NSObject {
-    // Created icon first, so the divider lands to its left the first time Coat Check runs.
-    private let toggle = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    private let divider = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private let toggle: NSStatusItem
+    private let divider: NSStatusItem
     private let preferences: Preferences
     private var autoHideTimer: Timer?
     private(set) var isHidden = false
@@ -15,9 +14,13 @@ final class MenuBarController: NSObject {
 
     init(preferences: Preferences) {
         self.preferences = preferences
+        // Registered, not written, so a spot the person drags to always wins.
+        UserDefaults.standard.register(defaults: StatusItemPlacement.firstLaunchDefaults)
+        toggle = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        toggle.autosaveName = StatusItemPlacement.iconName
+        divider = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        divider.autosaveName = StatusItemPlacement.dividerName
         super.init()
-        toggle.autosaveName = "CoatCheckIcon"
-        divider.autosaveName = "CoatCheckDivider"
         if let button = toggle.button {
             button.image = NSImage(systemSymbolName: "hanger", accessibilityDescription: "Coat Check")
             button.target = self

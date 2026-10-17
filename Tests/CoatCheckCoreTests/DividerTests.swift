@@ -21,3 +21,13 @@ final class DividerTests: XCTestCase {
         XCTAssertEqual(AutoHideDelay.oneMinute.title, "After 1 minute")
     }
 }
+
+final class StatusItemPlacementTests: XCTestCase {
+    func testDividerStartsLeftOfTheIcon() {
+        let defaults = StatusItemPlacement.firstLaunchDefaults
+        let icon = defaults[StatusItemPlacement.positionKey(StatusItemPlacement.iconName)]
+        let divider = defaults[StatusItemPlacement.positionKey(StatusItemPlacement.dividerName)]
+        XCTAssertNotNil(icon)
+        XCTAssertGreaterThan(divider ?? 0, icon ?? 0)
+    }
+}

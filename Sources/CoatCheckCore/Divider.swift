@@ -31,3 +31,18 @@ public enum AutoHideDelay: Int, CaseIterable, Identifiable {
         }
     }
 }
+
+/// Where the Coat Check icon and divider start out.
+public enum StatusItemPlacement {
+    public static let iconName = "CoatCheckIcon"
+    public static let dividerName = "CoatCheckDivider"
+
+    /// macOS keeps each status item's spot under this key, counted from the right end of the menu bar.
+    public static func positionKey(_ name: String) -> String { "NSStatusItem Preferred Position \(name)" }
+
+    /// New status items go to the left end, which is off-screen beside the notch when the menu bar is crowded.
+    /// Starting at the right end keeps both visible, with the divider just left of the icon.
+    public static var firstLaunchDefaults: [String: Double] {
+        [positionKey(iconName): 1, positionKey(dividerName): 2]
+    }
+}
