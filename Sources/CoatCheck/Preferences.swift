@@ -9,11 +9,16 @@ final class Preferences: ObservableObject {
     @Published var autoHideDelay: AutoHideDelay {
         didSet { defaults.set(autoHideDelay.rawValue, forKey: "autoHideDelay") }
     }
+    /// Checks icons whenever only the built-in display is in use, and brings them back with an external one.
+    @Published var hideOnLaptopScreen: Bool {
+        didSet { defaults.set(hideOnLaptopScreen, forKey: "hideOnLaptopScreen") }
+    }
     @Published private(set) var loginStatus = SMAppService.mainApp.status
     @Published var notice: String?
 
     init() {
         autoHideDelay = AutoHideDelay(rawValue: defaults.integer(forKey: "autoHideDelay")) ?? .never
+        hideOnLaptopScreen = defaults.object(forKey: "hideOnLaptopScreen") as? Bool ?? true
     }
 
     /// True until the person has seen the welcome once.

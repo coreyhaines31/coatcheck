@@ -27,6 +27,11 @@ struct SettingsView: View {
                 .padding(.vertical, 4)
             }
             Section {
+                Toggle(isOn: $preferences.hideOnLaptopScreen) {
+                    Text("Check icons on the laptop screen")
+                    Text("The notch leaves little room when the built-in display is the only one. "
+                         + "Coat Check checks icons then and brings them back when an external display connects.")
+                }
                 Picker("After showing icons, check them again", selection: $preferences.autoHideDelay) {
                     ForEach(AutoHideDelay.allCases) { delay in Text(delay.title).tag(delay) }
                 }

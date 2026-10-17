@@ -37,7 +37,14 @@ final class MenuBarController: NSObject {
     }
 
     /// Checks or returns the icons left of the divider. `byPerson` reveals start the auto-hide countdown.
-    func setHidden(_ hidden: Bool, byPerson: Bool = true) {
+    func setHidden(_ hidden: Bool, byPerson: Bool = true, attempt: Int = 0) {
+        // Right after launch the items have no place in the menu bar yet, so automatic changes wait for it.
+        if !byPerson, !isPlaced, attempt < 20 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+                self?.setHidden(hidden, byPerson: false, attempt: attempt + 1)
+            }
+            return
+        }
         autoHideTimer?.invalidate()
         autoHideTimer = nil
         if hidden == isHidden {
@@ -59,6 +66,13 @@ final class MenuBarController: NSObject {
         }
         isHidden = hidden
         updateToggle()
+    }
+
+    private var isPlaced: Bool {
+        [toggle, divider].allSatisfy { item in
+            guard let frame = item.button?.window?.frame, frame.height > 0 else { return false }
+            return NSScreen.screens.contains { $0.frame.intersects(frame) }
+        }
     }
 
     @objc private func toggleClicked() {
