@@ -8,7 +8,6 @@ final class MenuBarController: NSObject {
     private let preferences: Preferences
     private var autoHideTimer: Timer?
     private(set) var isHidden = false
-    var onChange: (() -> Void)?
     var onOpenSettings: (() -> Void)?
     var onCheckForUpdates: (() -> Void)?
 
@@ -60,7 +59,6 @@ final class MenuBarController: NSObject {
         }
         isHidden = hidden
         updateToggle()
-        onChange?()
     }
 
     @objc private func toggleClicked() {
