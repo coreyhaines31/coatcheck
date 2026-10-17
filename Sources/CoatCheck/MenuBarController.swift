@@ -37,26 +37,24 @@ final class MenuBarController: NSObject {
     }
 
     /// Checks or returns the icons left of the divider. `byPerson` reveals start the auto-hide countdown.
-    func setHidden(_ hidden: Bool, byPerson: Bool = true, attempt: Int = 0) {
+    /// Returns false when hiding is refused because the divider sits right of the icon.
+    @discardableResult
+    func setHidden(_ hidden: Bool, byPerson: Bool = true, attempt: Int = 0) -> Bool {
         // Right after launch the items have no place in the menu bar yet, so automatic changes wait for it.
         if !byPerson, !isPlaced, attempt < 20 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
                 self?.setHidden(hidden, byPerson: false, attempt: attempt + 1)
             }
-            return
+            return true
         }
         autoHideTimer?.invalidate()
         autoHideTimer = nil
         if hidden == isHidden {
             if !hidden && byPerson { scheduleAutoHide() }
-            return
+            return true
         }
         if hidden {
-            guard Divider.canHide(dividerMinX: divider.button?.window?.frame.minX,
-                                  toggleMinX: toggle.button?.window?.frame.minX) else {
-                if byPerson { explainDividerPlacement() }
-                return
-            }
+            guard dividerPlaced else { return false }
             divider.button?.image = nil
             divider.length = Divider.hiddenLength
         } else {
@@ -66,6 +64,18 @@ final class MenuBarController: NSObject {
         }
         isHidden = hidden
         updateToggle()
+        return true
+    }
+
+    /// Whether the divider sits left of the icon, so hiding is safe. Always true while hidden.
+    var dividerPlaced: Bool {
+        isHidden || Divider.canHide(dividerMinX: divider.button?.window?.frame.minX,
+                                    toggleMinX: toggle.button?.window?.frame.minX)
+    }
+
+    /// The click handlers' version of `setHidden`, which explains a refusal.
+    private func personSetHidden(_ hidden: Bool) {
+        if !setHidden(hidden) { explainDividerPlacement() }
     }
 
     private var isPlaced: Bool {
@@ -80,11 +90,11 @@ final class MenuBarController: NSObject {
         if event?.type == .rightMouseUp || event?.modifierFlags.contains(.control) == true {
             showMenu()
         } else {
-            setHidden(!isHidden)
+            personSetHidden(!isHidden)
         }
     }
 
-    @objc private func dividerClicked() { setHidden(true) }
+    @objc private func dividerClicked() { personSetHidden(true) }
 
     private func showMenu() {
         let menu = NSMenu()
@@ -99,7 +109,7 @@ final class MenuBarController: NSObject {
         toggle.menu = nil
     }
 
-    @objc private func menuToggle() { setHidden(!isHidden) }
+    @objc private func menuToggle() { personSetHidden(!isHidden) }
     @objc private func menuSettings() { onOpenSettings?() }
     @objc private func menuUpdates() { onCheckForUpdates?() }
 
