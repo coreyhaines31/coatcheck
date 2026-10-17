@@ -16,11 +16,11 @@ struct SettingsView: View {
                         .frame(width: 40)
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Check the icons you don’t need right now").font(.headline)
-                        Text("Hold ⌘ and drag menu bar icons to the left of the │ divider. "
-                             + "Click the hanger to check them, and click it again to get them back.")
+                        Text("Icons to the left of the │ divider get checked. Hold ⌘ and drag the ones "
+                             + "you always want to see to the right of it, next to the hanger.")
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
-                        Text("Right-click the hanger for settings and updates.")
+                        Text("Click the hanger to check icons or get them back. Right-click it for settings.")
                             .foregroundStyle(.secondary)
                     }
                 }

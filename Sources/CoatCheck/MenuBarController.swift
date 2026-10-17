@@ -31,7 +31,7 @@ final class MenuBarController: NSObject {
             button.target = self
             button.action = #selector(dividerClicked)
             button.setAccessibilityLabel("Coat Check divider")
-            button.toolTip = "Icons left of this divider are checked. Hold ⌘ and drag icons to move them."
+            button.toolTip = "Icons left of this divider get checked. Hold ⌘ and drag icons across it."
         }
         updateToggle()
     }
