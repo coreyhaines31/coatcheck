@@ -11,6 +11,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let screens = ScreenWatcher()
     private var hideOnLaptopObserver: AnyCancellable?
     private var welcomeObserver: NSObjectProtocol?
+    private var commands: CommandListener?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -21,6 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         preferences.applyLaunchAtLoginDefault()
         screens.onChange = { [weak self] now, previously in self?.applyScreenRule(now: now, previously: previously) }
         screens.start()
+        commands = CommandListener { [unowned self] in handle($0) }
         // @Published sends before the new value is stored, so read it on the next pass.
         hideOnLaptopObserver = preferences.$hideOnLaptopScreen.dropFirst().receive(on: DispatchQueue.main).sink { [weak self] enabled in
             guard let self, enabled else { return }
@@ -40,6 +42,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             applyScreenRule(now: screens.laptopScreenOnly, previously: nil)
         }
+    }
+
+    private func handle(_ request: Command.Request) -> Command.Reply {
+        if let menuBar {
+            switch request.action {
+            case .show: menuBar.setHidden(false)
+            case .hide: menuBar.setHidden(true)
+            case .toggle: menuBar.setHidden(!menuBar.isHidden)
+            case .status: break
+            }
+        }
+        return Command.Reply(id: request.id, hidden: menuBar?.isHidden ?? false, dividerPlaced: menuBar?.dividerPlaced ?? false,
+                             laptopScreenOnly: screens.laptopScreenOnly, hideOnLaptopScreen: preferences.hideOnLaptopScreen,
+                             version: CoatCheckVersion.current)
     }
 
     private func applyScreenRule(now: Bool?, previously: Bool?) {

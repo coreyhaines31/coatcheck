@@ -1,0 +1,114 @@
+import AppKit
+import CoatCheckCore
+
+let help = """
+coatcheck: check the menu bar icons you don't need right now.
+
+Usage: coatcheck <command> [--json]
+
+Commands:
+  status    Whether icons are checked, and whether only the laptop screen is in use
+  hide      Check the icons left of the divider
+  show      Bring checked icons back
+  toggle    Hide them if they're out, show them if they're checked
+  open      Open Coat Check, or its settings if it's already running
+
+Options:
+  --json    Machine-readable output
+  -h, --help
+  -v, --version
+
+Every command except open needs Coat Check running.
+
+Exit codes: 0 success, 1 error or Coat Check isn't running,
+2 hiding refused because the divider sits right of the hanger.
+
+More: https://github.com/coreyhaines31/coatcheck#command-line
+"""
+
+var json = false
+var command = ""
+for argument in CommandLine.arguments.dropFirst() {
+    switch argument {
+    case "--json": json = true
+    case "-h", "--help": command = "help"
+    case "-v", "--version": command = "version"
+    default:
+        guard command.isEmpty, !argument.hasPrefix("-") else { fail("Unknown option \(argument). Run `coatcheck --help`.") }
+        command = argument
+    }
+}
+
+func printJSON<T: Encodable>(_ value: T) {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+    if let data = try? encoder.encode(value), let text = String(data: data, encoding: .utf8) { print(text) }
+}
+
+func fail(_ message: String, code: Int32 = 1) -> Never {
+    if json { printJSON(["error": message]) } else { FileHandle.standardError.write(Data((message + "\n").utf8)) }
+    exit(code)
+}
+
+/// Reads the version from the app bundle this tool ships in, following the Homebrew or PATH symlink.
+func bundledVersion() -> String {
+    let executable = Bundle.main.executableURL?.resolvingSymlinksInPath()
+    let plist = executable?.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Info.plist")
+    let info = plist.flatMap { NSDictionary(contentsOf: $0) }
+    return info?["CFBundleShortVersionString"] as? String ?? "dev"
+}
+
+func send(_ action: Command.Action) -> Command.Reply {
+    guard !NSRunningApplication.runningApplications(withBundleIdentifier: Command.bundleIdentifier).isEmpty else {
+        fail("Coat Check isn't running. Start it with `coatcheck open`.")
+    }
+    let request = Command.Request(action: action)
+    var reply: Command.Reply?
+    let center = DistributedNotificationCenter.default()
+    let observer = center.addObserver(forName: Command.reply, object: nil, queue: .main) { notification in
+        if let received = Command.Reply(userInfo: notification.userInfo), received.id == request.id { reply = received }
+    }
+    center.postNotificationName(Command.request, object: nil, userInfo: request.userInfo, deliverImmediately: true)
+    let deadline = Date().addingTimeInterval(3)
+    while reply == nil, Date() < deadline { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+    center.removeObserver(observer)
+    guard let reply else { fail("Coat Check didn't answer. Try again, or restart it.") }
+    return reply
+}
+
+func report(_ reply: Command.Reply) {
+    if json { return printJSON(reply) }
+    print(reply.hidden ? "Icons are checked." : "Icons are out.")
+    switch (reply.laptopScreenOnly, reply.hideOnLaptopScreen) {
+    case (true, true): print("Only the laptop screen is in use, so Coat Check checks icons automatically.")
+    case (false, true): print("An external display is in use, so Coat Check leaves icons out.")
+    case (true, false): print("Only the laptop screen is in use. Checking icons automatically there is off.")
+    default: break
+    }
+    if !reply.dividerPlaced {
+        print("The divider sits right of the hanger, so icons can't be checked. Hold ⌘ and drag it left of the hanger.")
+    }
+}
+
+switch command {
+case "", "help": print(help)
+case "version": json ? printJSON(["version": bundledVersion()]) : print("coatcheck \(bundledVersion())")
+case "open":
+    guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: Command.bundleIdentifier) else {
+        fail("Coat Check isn't installed. Download it from https://coatcheckformac.com.")
+    }
+    var opened = false
+    NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration()) { _, error in
+        if let error { fail("Couldn’t open Coat Check: \(error.localizedDescription)") }
+        opened = true
+    }
+    while !opened { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+case "status": report(send(.status))
+case "show": report(send(.show))
+case "toggle": report(send(.toggle))
+case "hide":
+    let reply = send(.hide)
+    report(reply)
+    if !reply.hidden { exit(2) }
+default: fail("Unknown command \(command). Run `coatcheck --help`.")
+}

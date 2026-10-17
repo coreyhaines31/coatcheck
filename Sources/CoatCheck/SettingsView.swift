@@ -5,6 +5,7 @@ import CoatCheckCore
 struct SettingsView: View {
     @ObservedObject var preferences: Preferences
     var checkForUpdates: () -> Void
+    @State private var commandLineNote: String?
 
     var body: some View {
         Form {
@@ -44,6 +45,17 @@ struct SettingsView: View {
                 }
                 if let notice = preferences.notice {
                     Text(notice).font(.callout).foregroundStyle(.secondary)
+                }
+            }
+            Section {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Command line")
+                        Text(commandLineNote ?? "Check and show icons from Terminal or an AI agent with the coatcheck command.")
+                            .font(.callout).foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button("Install…") { commandLineNote = CommandLineInstaller.install() }
                 }
             }
             Section {
