@@ -10,6 +10,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var settingsWindow: NSWindow?
     private let screens = ScreenWatcher()
     private var hideOnLaptopObserver: AnyCancellable?
+    private var dividerObserver: AnyCancellable?
     private var welcomeObserver: NSObjectProtocol?
     private var commands: CommandListener?
 
@@ -28,10 +29,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             guard let self, enabled else { return }
             applyScreenRule(now: screens.laptopScreenOnly, previously: nil)
         }
+        dividerObserver = preferences.$useDivider.dropFirst().receive(on: DispatchQueue.main).sink { [weak self] enabled in
+            guard let self else { return }
+            self.menuBar?.setDividerEnabled(enabled)
+            if enabled { applyScreenRule(now: screens.laptopScreenOnly, previously: nil) }
+        }
         if preferences.isFirstLaunch {
             preferences.markLaunched()
             showSettings()
-            // Nothing disappears until the person has read how checking works.
+            // Nothing disappears until the person has read how Coat Check works.
             welcomeObserver = NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification,
                                                                      object: settingsWindow, queue: .main) { [weak self] _ in
                 guard let self else { return }
@@ -48,6 +54,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         var items: [Command.Item]?
         var message: String?
         if let menuBar {
+            let needsDivider: Set<Command.Action> = [.show, .hide, .toggle]
+            if needsDivider.contains(request.action), !preferences.useDivider {
+                message = "The divider is off, so nothing is hidden. Turn it on in Coat Check’s settings."
+            }
             switch request.action {
             case .show: menuBar.setHidden(false)
             case .hide: menuBar.setHidden(true)
@@ -75,7 +85,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func applyScreenRule(now: Bool?, previously: Bool?) {
-        guard preferences.hideOnLaptopScreen, welcomeObserver == nil,
+        guard preferences.useDivider, preferences.hideOnLaptopScreen, welcomeObserver == nil,
               let hidden = ScreenRule.hidden(laptopScreenOnly: now, previously: previously) else { return }
         menuBar?.setHidden(hidden, byPerson: false)
     }

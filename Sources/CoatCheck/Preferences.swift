@@ -9,7 +9,11 @@ final class Preferences: ObservableObject {
     @Published var autoHideDelay: AutoHideDelay {
         didSet { defaults.set(autoHideDelay.rawValue, forKey: "autoHideDelay") }
     }
-    /// Checks icons whenever only the built-in display is in use, and brings them back with an external one.
+    /// Adds a divider that can hide the icons to its left. Off unless someone turns it on.
+    @Published var useDivider: Bool {
+        didSet { defaults.set(useDivider, forKey: "useDivider") }
+    }
+    /// With the divider on, hides icons whenever only the built-in display is in use, and brings them back with an external one.
     @Published var hideOnLaptopScreen: Bool {
         didSet { defaults.set(hideOnLaptopScreen, forKey: "hideOnLaptopScreen") }
     }
@@ -18,6 +22,7 @@ final class Preferences: ObservableObject {
 
     init() {
         autoHideDelay = AutoHideDelay(rawValue: defaults.integer(forKey: "autoHideDelay")) ?? .never
+        useDivider = defaults.bool(forKey: "useDivider")
         hideOnLaptopScreen = defaults.object(forKey: "hideOnLaptopScreen") as? Bool ?? true
     }
 

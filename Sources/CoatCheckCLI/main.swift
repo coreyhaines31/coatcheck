@@ -2,7 +2,7 @@ import AppKit
 import CoatCheckCore
 
 let help = """
-coatcheck: check the menu bar icons you don't need right now.
+coatcheck: reach every menu bar icon, even the ones the notch hides.
 
 Usage: coatcheck <command> [--json]
 
@@ -10,10 +10,10 @@ Commands:
   list      Every menu bar icon, with the ones macOS had no room for marked hidden
   click <name>
             Open a menu bar icon, even one macOS had no room for
-  status    Whether icons are checked, and whether only the laptop screen is in use
-  hide      Check the icons left of the divider
-  show      Bring checked icons back
-  toggle    Hide them if they're out, show them if they're checked
+  status    Whether the divider is hiding icons, and whether only the laptop screen is in use
+  hide      Hide the icons left of the divider (when the divider is on)
+  show      Show them again
+  toggle    Hide them if they're showing, show them if they're hidden
   open      Open Coat Check, or its settings if it's already running
 
 Options:
@@ -90,15 +90,16 @@ func needAccessibility() -> Never {
 
 func report(_ reply: Command.Reply) {
     if json { return printJSON(reply) }
-    print(reply.hidden ? "Icons are checked." : "Icons are out.")
+    if let message = reply.message { return print(message) }
+    print(reply.hidden ? "Icons left of the divider are hidden." : "Icons left of the divider are showing.")
     switch (reply.laptopScreenOnly, reply.hideOnLaptopScreen) {
-    case (true, true): print("Only the laptop screen is in use, so Coat Check checks icons automatically.")
-    case (false, true): print("An external display is in use, so Coat Check leaves icons out.")
-    case (true, false): print("Only the laptop screen is in use. Checking icons automatically there is off.")
+    case (true, true): print("Only the laptop screen is in use, so Coat Check hides them automatically.")
+    case (false, true): print("An external display is in use, so Coat Check leaves them showing.")
+    case (true, false): print("Only the laptop screen is in use. Hiding automatically there is off.")
     default: break
     }
     if !reply.dividerPlaced {
-        print("The divider sits right of the hanger, so icons can't be checked. Hold ⌘ and drag it left of the hanger.")
+        print("The divider sits right of the hanger, so icons can't be hidden. Hold ⌘ and drag it left of the hanger.")
     }
 }
 
@@ -121,8 +122,8 @@ case "list":
     let items = reply.items ?? []
     if json { printJSON(items) } else {
         for item in items {
-            let name = item.label.isEmpty || item.label == item.app ? item.app : "\(item.app): \(item.label)"
-            print("\(item.visible ? "  " : "* ")\(name)")
+            let name = Overflow.displayName(app: item.app, label: item.label)
+            print("\(item.visible ? "  " : "* ")\(name.name)\(name.detail.map { " (\($0))" } ?? "")")
         }
         print("\n* hidden: macOS had no room for it. Open one with `coatcheck click <name>`.")
     }
@@ -139,6 +140,7 @@ case "toggle": report(send(.toggle))
 case "hide":
     let reply = send(.hide)
     report(reply)
+    if reply.message != nil { exit(1) }
     if !reply.hidden { exit(2) }
 default: fail("Unknown command \(command). Run `coatcheck --help`.")
 }
