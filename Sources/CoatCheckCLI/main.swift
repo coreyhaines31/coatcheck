@@ -91,6 +91,9 @@ func needAccessibility() -> Never {
 func report(_ reply: Command.Reply) {
     if json { return printJSON(reply) }
     if let message = reply.message { return print(message) }
+    print(reply.accessibility ? "Accessibility is on, so Coat Check can list and open every menu bar icon."
+                              : "Accessibility is off. Turn it on in System Settings → Privacy & Security → Accessibility.")
+    guard reply.divider else { return print("The divider is off, so Coat Check isn't hiding any icons.") }
     print(reply.hidden ? "Icons left of the divider are hidden." : "Icons left of the divider are showing.")
     switch (reply.laptopScreenOnly, reply.hideOnLaptopScreen) {
     case (true, true): print("Only the laptop screen is in use, so Coat Check hides them automatically.")

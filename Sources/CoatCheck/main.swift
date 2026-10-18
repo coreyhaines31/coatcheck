@@ -69,7 +69,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             case .click: message = click(request.target)
             }
         }
-        return Command.Reply(id: request.id, hidden: menuBar?.isHidden ?? false, dividerPlaced: menuBar?.dividerPlaced ?? false,
+        return Command.Reply(id: request.id, hidden: menuBar?.isHidden ?? false, divider: preferences.useDivider, dividerPlaced: menuBar?.dividerPlaced ?? false,
                              laptopScreenOnly: screens.laptopScreenOnly, hideOnLaptopScreen: preferences.hideOnLaptopScreen,
                              version: CoatCheckVersion.current, accessibility: MenuBarItems.isTrusted,
                              items: items, message: message)
