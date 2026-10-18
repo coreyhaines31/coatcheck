@@ -7,6 +7,9 @@ coatcheck: check the menu bar icons you don't need right now.
 Usage: coatcheck <command> [--json]
 
 Commands:
+  list      Every menu bar icon, with the ones macOS had no room for marked hidden
+  click <name>
+            Open a menu bar icon, even one macOS had no room for
   status    Whether icons are checked, and whether only the laptop screen is in use
   hide      Check the icons left of the divider
   show      Bring checked icons back
@@ -18,7 +21,10 @@ Options:
   -h, --help
   -v, --version
 
-Every command except open needs Coat Check running.
+Every command except open needs Coat Check running. list and click also need
+Accessibility permission for Coat Check (System Settings → Privacy & Security).
+<name> is an app name from `coatcheck list` (any case; the start works when it's
+unique), or "App: label" when an app has several icons.
 
 Exit codes: 0 success, 1 error or Coat Check isn't running,
 2 hiding refused because the divider sits right of the hanger.
@@ -28,14 +34,15 @@ More: https://github.com/coreyhaines31/coatcheck#command-line
 
 var json = false
 var command = ""
+var target: [String] = []
 for argument in CommandLine.arguments.dropFirst() {
     switch argument {
     case "--json": json = true
     case "-h", "--help": command = "help"
     case "-v", "--version": command = "version"
     default:
-        guard command.isEmpty, !argument.hasPrefix("-") else { fail("Unknown option \(argument). Run `coatcheck --help`.") }
-        command = argument
+        guard !argument.hasPrefix("-") else { fail("Unknown option \(argument). Run `coatcheck --help`.") }
+        if command.isEmpty { command = argument } else { target.append(argument) }
     }
 }
 
@@ -58,11 +65,11 @@ func bundledVersion() -> String {
     return info?["CFBundleShortVersionString"] as? String ?? "dev"
 }
 
-func send(_ action: Command.Action) -> Command.Reply {
+func send(_ action: Command.Action, target: String = "") -> Command.Reply {
     guard !NSRunningApplication.runningApplications(withBundleIdentifier: Command.bundleIdentifier).isEmpty else {
         fail("Coat Check isn't running. Start it with `coatcheck open`.")
     }
-    let request = Command.Request(action: action)
+    let request = Command.Request(action: action, target: target)
     var reply: Command.Reply?
     let center = DistributedNotificationCenter.default()
     let observer = center.addObserver(forName: Command.reply, object: nil, queue: .main) { notification in
@@ -74,6 +81,11 @@ func send(_ action: Command.Action) -> Command.Reply {
     center.removeObserver(observer)
     guard let reply else { fail("Coat Check didn't answer. Try again, or restart it.") }
     return reply
+}
+
+func needAccessibility() -> Never {
+    fail("Coat Check needs Accessibility permission to see other apps' menu bar icons. "
+         + "Turn it on in System Settings → Privacy & Security → Accessibility.")
 }
 
 func report(_ reply: Command.Reply) {
@@ -103,6 +115,24 @@ case "open":
         opened = true
     }
     while !opened { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+case "list":
+    let reply = send(.list)
+    guard reply.accessibility else { needAccessibility() }
+    let items = reply.items ?? []
+    if json { printJSON(items) } else {
+        for item in items {
+            let name = item.label.isEmpty || item.label == item.app ? item.app : "\(item.app): \(item.label)"
+            print("\(item.visible ? "  " : "* ")\(name)")
+        }
+        print("\n* hidden: macOS had no room for it. Open one with `coatcheck click <name>`.")
+    }
+case "click":
+    guard !target.isEmpty else { fail("Name an icon: `coatcheck click <name>`. See them with `coatcheck list`.") }
+    let reply = send(.click, target: target.joined(separator: " "))
+    guard reply.accessibility else { needAccessibility() }
+    let message = reply.message ?? ""
+    if json { printJSON(["message": message]) } else { print(message) }
+    if !message.hasPrefix("Opened") { exit(1) }
 case "status": report(send(.status))
 case "show": report(send(.show))
 case "toggle": report(send(.toggle))

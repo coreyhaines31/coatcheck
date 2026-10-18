@@ -45,17 +45,33 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func handle(_ request: Command.Request) -> Command.Reply {
+        var items: [Command.Item]?
+        var message: String?
         if let menuBar {
             switch request.action {
             case .show: menuBar.setHidden(false)
             case .hide: menuBar.setHidden(true)
             case .toggle: menuBar.setHidden(!menuBar.isHidden)
             case .status: break
+            case .list:
+                if !MenuBarItems.isTrusted { MenuBarItems.requestAccess() }
+                items = MenuBarItems.all().map(\.summary)
+            case .click: message = click(request.target)
             }
         }
         return Command.Reply(id: request.id, hidden: menuBar?.isHidden ?? false, dividerPlaced: menuBar?.dividerPlaced ?? false,
                              laptopScreenOnly: screens.laptopScreenOnly, hideOnLaptopScreen: preferences.hideOnLaptopScreen,
-                             version: CoatCheckVersion.current)
+                             version: CoatCheckVersion.current, accessibility: MenuBarItems.isTrusted,
+                             items: items, message: message)
+    }
+
+    private func click(_ target: String) -> String {
+        let all = MenuBarItems.all()
+        guard let index = Overflow.match(target, in: all.map { ($0.appName, $0.label) }) else {
+            return "No single menu bar icon matches “\(target)”. Run `coatcheck list` to see them."
+        }
+        let item = all[index]
+        return item.press() ? "Opened \(item.appName)." : "\(item.appName) didn’t respond to the click."
     }
 
     private func applyScreenRule(now: Bool?, previously: Bool?) {
