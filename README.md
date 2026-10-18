@@ -11,6 +11,16 @@ A free, open-source menu bar manager for macOS. When the notch or a crowded menu
 - **Nothing moves.** Coat Check doesn't rearrange your menu bar or drag icons around.
 - **No telemetry.** Nothing leaves your Mac except Sparkle's update check.
 
+## Install
+
+Download the DMG from [coatcheckformac.com](https://coatcheckformac.com) or the [latest release](https://github.com/coreyhaines31/coatcheck/releases/latest), or use Homebrew:
+
+```sh
+brew install coreyhaines31/tap/coatcheck
+```
+
+Needs macOS 14 or later on an Apple silicon Mac. Coat Check updates itself.
+
 ## How to use it
 
 Coat Check adds a hanger to the right end of your menu bar. Click it:
