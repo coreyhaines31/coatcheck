@@ -9,7 +9,6 @@ struct MenuBarItem {
     /// In Accessibility coordinates: origin at the top left of the main screen.
     let frame: CGRect
     let label: String
-    let index: Int
 
     var appName: String { app.localizedName ?? app.bundleIdentifier ?? "Unknown app" }
 
@@ -74,12 +73,12 @@ enum MenuBarItems {
         AXUIElementSetMessagingTimeout(element, 0.25)
         guard let bar: AXUIElement = attribute(element, kAXExtrasMenuBarAttribute),
               let children: [AXUIElement] = attribute(bar, kAXChildrenAttribute) else { return [] }
-        return children.enumerated().compactMap { index, child in
+        return children.compactMap { child in
             guard let frame = frame(of: child), frame.width > 0 else { return nil }
             let label = [kAXTitleAttribute, kAXDescriptionAttribute, kAXHelpAttribute]
                 .lazy.compactMap { (key: String) -> String? in attribute(child, key) }
                 .first { !$0.isEmpty } ?? ""
-            return MenuBarItem(app: app, element: child, frame: frame, label: label, index: index,
+            return MenuBarItem(app: app, element: child, frame: frame, label: label,
                                isVisible: Overflow.isVisible(frame, clearFrom: clear.from, screenMaxX: clear.maxX))
         }
     }
