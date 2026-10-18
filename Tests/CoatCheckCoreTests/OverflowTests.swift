@@ -46,4 +46,25 @@ final class OverflowTests: XCTestCase {
     func testUnknownFails() {
         XCTAssertNil(Overflow.match("bartender", in: items))
     }
+
+    func testDisplayNameDropsRepeatedAppName() {
+        let name = Overflow.displayName(app: "WiFi or ISP", label: "WiFi or ISP: Fine: WiFi and ISP both OK")
+        XCTAssertEqual(name.name, "WiFi or ISP")
+        XCTAssertEqual(name.detail, "Fine: WiFi and ISP both OK")
+    }
+
+    func testDisplayNameWithoutLabel() {
+        XCTAssertEqual(Overflow.displayName(app: "Granola", label: "").name, "Granola")
+        XCTAssertNil(Overflow.displayName(app: "Green Room", label: "Green Room").detail)
+    }
+
+    func testSystemIconsUseTheirLabel() {
+        let name = Overflow.displayName(app: "Control Center", label: "Wi‑Fi, connected, 3 bars")
+        XCTAssertEqual(name.name, "Wi‑Fi")
+        XCTAssertEqual(name.detail, "connected, 3 bars")
+    }
+
+    func testDisplayNameKeepsStatusText() {
+        XCTAssertEqual(Overflow.displayName(app: "Disk Forecast", label: "85 GB").detail, "85 GB")
+    }
 }

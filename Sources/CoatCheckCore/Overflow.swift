@@ -25,4 +25,16 @@ public enum Overflow {
         }
         return nil
     }
+
+    /// A short name for an icon plus any status text it carries, from its app name and Accessibility label.
+    /// macOS's own icons all belong to Control Center, so their label is the name.
+    public static func displayName(app: String, label: String) -> (name: String, detail: String?) {
+        var rest = label
+        while rest.hasPrefix(app + ":") { rest = String(rest.dropFirst(app.count + 1)).trimmingCharacters(in: .whitespaces) }
+        if app == "Control Center", !rest.isEmpty {
+            let parts = rest.split(separator: ",", maxSplits: 1).map { $0.trimmingCharacters(in: .whitespaces) }
+            return (parts[0], parts.count > 1 ? parts[1] : nil)
+        }
+        return (app, rest.isEmpty || rest == app ? nil : rest)
+    }
 }
