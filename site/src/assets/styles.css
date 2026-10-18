@@ -446,6 +446,7 @@ details[open] > summary::after {rotate: 45deg}
   /* Phones can't hover, and there's no room beside the menu for a submenu. */
   .menu .submenu, .menu:not(:hover) .menu-row.is-open .submenu {display: none}
   .hidden-count {display: none}
+  .hover-hint {display: none}
   .get-card {grid-template-columns: 1fr}
   .claim-stub {width: auto; grid-auto-flow: column; justify-content: center; gap: 1rem; padding: 1.25rem; border-left: 0; border-top: 2px dashed #fff}
   .claim-stub strong {font-size: 1.75rem}
