@@ -1,0 +1,37 @@
+name: Bug report
+description: Something in Coat Check isn't working the way you expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect to see instead?
+    validations:
+      required: true
+  - type: input
+    id: app
+    attributes:
+      label: Which menu bar icon?
+      description: If the problem is with one app's icon or menu, which app is it?
+      placeholder: "Granola"
+  - type: input
+    id: coatcheck-version
+    attributes:
+      label: Coat Check version
+      description: Settings shows it at the bottom.
+      placeholder: "0.1.1"
+    validations:
+      required: true
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS version and Mac
+      placeholder: "macOS 26.1, MacBook Pro 14-inch"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: If you can, list what you did right before it happened.

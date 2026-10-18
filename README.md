@@ -2,10 +2,24 @@
 
 A free, open-source menu bar manager for macOS. When the notch or a crowded menu bar leaves no room, macOS quietly hides icons. Coat Check puts every one of them a click away.
 
+<p align="center">
+  <img src="docs/images/coatcheck-menu.png" width="720" alt="Illustration of the Coat Check menu under the hanger icon: icons with no room in the menu bar listed first, with Midnight Oil's own menu open beside it">
+</p>
+
 - **Every icon, within reach.** Click the hanger to see all your menu bar icons, with the ones macOS had no room for at the top.
 - **Their real menus, right under the hanger.** For apps with a menu, Coat Check shows that menu as a submenu and clicks the item you choose for you.
 - **Nothing moves.** Coat Check doesn't rearrange your menu bar or drag icons around.
 - **No telemetry.** Nothing leaves your Mac except Sparkle's update check.
+
+## Install
+
+Download the DMG from [coatcheckformac.com](https://coatcheckformac.com) or the [latest release](https://github.com/coreyhaines31/coatcheck/releases/latest), or use Homebrew:
+
+```sh
+brew install coreyhaines31/tap/coatcheck
+```
+
+Needs macOS 14 or later on an Apple silicon Mac. Coat Check updates itself.
 
 ## How to use it
 
