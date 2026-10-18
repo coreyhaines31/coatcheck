@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://coatcheckformac.com/sitemap.xml
