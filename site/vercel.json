@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "make lint",
+  "installCommand": "",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{"type": "host", "value": "www.coatcheckformac.com"}],
+      "destination": "https://coatcheckformac.com/:path*",
+      "permanent": true
+    }
+  ]
+}
