@@ -1,50 +1,48 @@
 # Coat Check
 
-A free, open-source menu bar manager for macOS. Check the icons you don't need right now behind a divider, and get them back with one click.
+A free, open-source menu bar manager for macOS. When the notch or a crowded menu bar leaves no room, macOS quietly hides icons. Coat Check puts every one of them a click away.
 
-Coat Check checks them automatically when the laptop screen is the only one in use, where the notch leaves little room, and brings them back when an external display connects.
-
-- **No permissions.** No Accessibility, no Screen Recording.
+- **Every icon, within reach.** Click the hanger to see all your menu bar icons, with the ones macOS had no room for at the top.
+- **Their real menus, right under the hanger.** For apps with a menu, Coat Check shows that menu as a submenu and clicks the item you choose for you.
+- **Nothing moves.** Coat Check doesn't rearrange your menu bar or drag icons around.
 - **No telemetry.** Nothing leaves your Mac except Sparkle's update check.
-- **Built to last through macOS updates.** It uses the plain divider technique, not the screen capture and private menu bar tricks that break every year.
 
 ## How to use it
 
-Coat Check adds two things to the right end of your menu bar: a hanger and a thin divider (│) to its left.
+Coat Check adds a hanger to the right end of your menu bar. Click it:
 
-- Every icon to the **left** of the divider gets checked. Hold ⌘ and drag the icons you always want to see to the **right** of the divider, next to the hanger.
-- **Click the hanger** to check icons or get them back. You can also click the divider to check them.
-- **Right-click the hanger** for Settings, Check for Updates and Quit.
+- **No room in the menu bar** lists the icons macOS is hiding, usually behind the notch. Hover one with a ▸ to see its menu, and choose an item.
+- **In the menu bar** lists the icons you can already see.
+- Icons without a ▸ (some apps show a panel instead of a menu) open where macOS put them.
 
-If the hanger ever ends up off-screen, open Coat Check again from Finder or Spotlight and its settings window appears.
+Coat Check needs **Accessibility** permission to list other apps' menu bar icons and click them. It reads nothing else. The first time you click the hanger, choose **Allow Accessibility Access…**, or turn it on in System Settings → Privacy & Security → Accessibility.
 
-### The laptop screen
+If the hanger itself ever ends up hidden, open Coat Check again from Finder or Spotlight and its settings window appears.
 
-With only the built-in display in use, Coat Check checks icons automatically. When an external display connects, including with the lid closed, it brings them back. Clicking the hanger overrides this until the next display change. Turn it off in Settings → **Check icons on the laptop screen**.
+### Optional: hide icons with a divider
 
-### Settings
+Turn on **Hide icons with a divider** in Settings to add a thin divider (│) left of the hanger. Icons to its left can be hidden to clear space: hold ⌘ and drag icons across it. With the divider on, you can also:
 
-- **Check icons on the laptop screen**: on by default.
-- **After showing icons, check them again**: never, or after 5 seconds to 1 minute. Coat Check waits while the pointer is in the menu bar.
-- **Open Coat Check at login**: on by default for copies in Applications.
+- **Hide them on the laptop screen**: hide them when the built-in display is the only one, and show them again when an external display connects.
+- **Hide them again** a few seconds after you show them.
 
 ## Command line
 
 Install the `coatcheck` command from Settings → Command line → **Install…**.
 
 ```
-coatcheck status    Whether icons are checked, and whether only the laptop screen is in use
-coatcheck hide      Check the icons left of the divider
-coatcheck show      Bring checked icons back
-coatcheck toggle    Hide them if they're out, show them if they're checked
-coatcheck open      Open Coat Check, or its settings if it's already running
+coatcheck list            Every menu bar icon, with the ones macOS had no room for marked hidden
+coatcheck click <name>    Open a menu bar icon, even one macOS had no room for
+coatcheck status          Whether the divider is hiding icons, and whether only the laptop screen is in use
+coatcheck hide|show|toggle  Hide or show the icons left of the divider
+coatcheck open            Open Coat Check, or its settings if it's already running
 ```
 
-Add `--json` for machine-readable output. Exit codes: 0 success, 1 error or Coat Check isn't running, 2 hiding refused because the divider sits right of the hanger.
+Add `--json` for machine-readable output. `<name>` is an app name from `coatcheck list` (any case; the start of a name works when it's unique), or `"App: label"` when an app has several icons.
 
 ## How it works
 
-The divider is an ordinary menu bar item. To check icons, it grows wider than the screen, which pushes everything to its left off the menu bar. To bring them back, it shrinks again. Coat Check refuses to hide while the divider sits right of the hanger, so it can never push away its own icon.
+Accessibility lists each running app's menu bar icons with their names and positions, which also works on macOS 26, where the window list reports every icon as Control Center's. An icon is hidden when it sits left of the notch, or left of the end of the app menus on screens without one. Most apps expose their icon's menu through Accessibility even while it's closed, so Coat Check rebuilds that menu under the hanger and presses the real item when you choose it.
 
 ## Building
 
@@ -56,7 +54,7 @@ make lint    # SwiftLint
 make run     # build dist/CoatCheck.app and open it
 ```
 
-Releases are built with `scripts/release.sh` from `main`: Developer ID signing, notarization, a DMG and a Sparkle appcast.
+Set `CODESIGN_IDENTITY` to a signing identity when building locally, so the Accessibility permission survives rebuilds. Releases are built with `scripts/release.sh` from `main`: Developer ID signing, notarization, a DMG and a Sparkle appcast.
 
 ## License
 

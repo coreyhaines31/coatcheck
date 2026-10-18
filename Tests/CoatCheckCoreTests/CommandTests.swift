@@ -22,4 +22,17 @@ final class CommandTests: XCTestCase {
                                   hideOnLaptopScreen: false, version: "0.1.0")
         XCTAssertNil(Command.Reply(userInfo: reply.userInfo)?.laptopScreenOnly)
     }
+
+    func testReplyCarriesItems() {
+        let item = Command.Item(app: "Spare", bundleIdentifier: "com.spareformac.Spare", label: "Spare",
+                                visible: false, x: 640, width: 32)
+        let reply = Command.Reply(id: "1", hidden: false, dividerPlaced: true, laptopScreenOnly: true,
+                                  hideOnLaptopScreen: false, version: "0.1.0", accessibility: true, items: [item])
+        XCTAssertEqual(Command.Reply(userInfo: reply.userInfo), reply)
+    }
+
+    func testClickRequestKeepsTarget() {
+        let request = Command.Request(action: .click, target: "Spare")
+        XCTAssertEqual(Command.Request(userInfo: request.userInfo)?.target, "Spare")
+    }
 }

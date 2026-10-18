@@ -2,6 +2,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
+# Set CODESIGN_IDENTITY to a real identity so permission grants survive rebuilds; ad-hoc otherwise.
 swift build -c release
 BIN_DIR=$(swift build -c release --show-bin-path)
 APP=dist/CoatCheck.app
@@ -17,6 +18,6 @@ mkdir -p dist/CoatCheck.iconset
 swiftc -O scripts/icon/main.swift -o .build/coatcheck-icon
 .build/coatcheck-icon dist/CoatCheck.iconset
 iconutil -c icns dist/CoatCheck.iconset -o "$APP/Contents/Resources/CoatCheck.icns"
-codesign --force --sign - "$APP/Contents/MacOS/coatcheck-cli"
-codesign --force --sign - "$APP"
+codesign --force --sign "${CODESIGN_IDENTITY:--}" "$APP/Contents/MacOS/coatcheck-cli"
+codesign --force --sign "${CODESIGN_IDENTITY:--}" "$APP"
 printf 'Built %s/%s\n' "$PWD" "$APP"
