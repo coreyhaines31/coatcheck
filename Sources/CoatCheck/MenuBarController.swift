@@ -162,8 +162,8 @@ final class MenuBarController: NSObject {
         if let source = MenuBarItems.menu(of: item.element) {
             let mirror = MirroredMenu(source: source)
             mirrors.append(mirror)
+            // Setting a submenu also sets the action that opens it, so nothing else may change the action after.
             entry.submenu = mirror.makeMenu()
-            entry.action = nil
         }
         return entry
     }

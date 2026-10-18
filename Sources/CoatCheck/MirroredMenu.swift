@@ -44,7 +44,6 @@ final class MirroredMenu: NSObject, NSMenuDelegate {
                 let mirror = MirroredMenu(source: source)
                 submenus.append(mirror)
                 entry.submenu = mirror.makeMenu()
-                entry.action = nil
             }
             elements.append(element)
             menu.addItem(entry)
