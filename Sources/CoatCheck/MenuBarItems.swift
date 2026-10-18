@@ -94,7 +94,16 @@ enum MenuBarItems {
         return CGRect(origin: origin, size: extent)
     }
 
-    private static func attribute<T>(_ element: AXUIElement, _ name: String) -> T? {
+    static func children(of element: AXUIElement) -> [AXUIElement] {
+        attribute(element, kAXChildrenAttribute) ?? []
+    }
+
+    /// An element's menu, when its app exposes one. macOS's own icons don't.
+    static func menu(of element: AXUIElement) -> AXUIElement? {
+        children(of: element).first { (attribute($0, kAXRoleAttribute) as String?) == kAXMenuRole }
+    }
+
+    static func attribute<T>(_ element: AXUIElement, _ name: String) -> T? {
         var value: CFTypeRef?
         guard AXUIElementCopyAttributeValue(element, name as CFString, &value) == .success else { return nil }
         return value as? T

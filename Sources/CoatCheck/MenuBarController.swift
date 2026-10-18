@@ -10,6 +10,7 @@ final class MenuBarController: NSObject {
     private var autoHideTimer: Timer?
     /// The icons listed in the open menu, so a choice can be pressed after the menu closes.
     private var listed: [MenuBarItem] = []
+    private var mirrors: [MirroredMenu] = []
     private(set) var isHidden = false
     var onOpenSettings: (() -> Void)?
     var onCheckForUpdates: (() -> Void)?
@@ -110,6 +111,7 @@ final class MenuBarController: NSObject {
 
     private func showMenu() {
         let menu = NSMenu()
+        mirrors = []
         if MenuBarItems.isTrusted {
             listed = MenuBarItems.all()
             let hidden = listed.indices.filter { !listed[$0].isVisible }
@@ -155,6 +157,13 @@ final class MenuBarController: NSObject {
         if let icon = item.app.icon?.copy() as? NSImage {
             icon.size = NSSize(width: 16, height: 16)
             entry.image = icon
+        }
+        // Apps that expose their menu get it right here; the rest open in place.
+        if let source = MenuBarItems.menu(of: item.element) {
+            let mirror = MirroredMenu(source: source)
+            mirrors.append(mirror)
+            entry.submenu = mirror.makeMenu()
+            entry.action = nil
         }
         return entry
     }
