@@ -12,7 +12,7 @@ final class CommandTests: XCTestCase {
     }
 
     func testReplyRoundTrips() {
-        let reply = Command.Reply(id: "1", hidden: true, dividerPlaced: false, laptopScreenOnly: true,
+        let reply = Command.Reply(id: "1", hidden: true, divider: true, dividerPlaced: false, laptopScreenOnly: true,
                                   hideOnLaptopScreen: true, version: "0.1.0")
         XCTAssertEqual(Command.Reply(userInfo: reply.userInfo), reply)
     }

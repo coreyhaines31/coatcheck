@@ -56,6 +56,8 @@ public enum Command {
     public struct Reply: Equatable, Encodable {
         public var id: String
         public var hidden: Bool
+        /// Whether the optional divider is turned on. Nothing is hidden without it.
+        public var divider: Bool
         /// False when the divider sits right of the Coat Check icon, so hiding was refused.
         public var dividerPlaced: Bool
         public var laptopScreenOnly: Bool?
@@ -67,11 +69,12 @@ public enum Command {
         /// What happened, for `click`.
         public var message: String?
 
-        public init(id: String, hidden: Bool, dividerPlaced: Bool, laptopScreenOnly: Bool?,
+        public init(id: String, hidden: Bool, divider: Bool = false, dividerPlaced: Bool, laptopScreenOnly: Bool?,
                     hideOnLaptopScreen: Bool, version: String, accessibility: Bool = false,
                     items: [Item]? = nil, message: String? = nil) {
             self.id = id
             self.hidden = hidden
+            self.divider = divider
             self.dividerPlaced = dividerPlaced
             self.laptopScreenOnly = laptopScreenOnly
             self.hideOnLaptopScreen = hideOnLaptopScreen
@@ -83,7 +86,7 @@ public enum Command {
 
         public init?(userInfo: [AnyHashable: Any]?) {
             guard let info = userInfo as? [String: String], let id = info["id"] else { return nil }
-            self.init(id: id, hidden: info["hidden"] == "true", dividerPlaced: info["dividerPlaced"] != "false",
+            self.init(id: id, hidden: info["hidden"] == "true", divider: info["divider"] == "true", dividerPlaced: info["dividerPlaced"] != "false",
                       laptopScreenOnly: info["laptopScreenOnly"].flatMap { Bool($0) },
                       hideOnLaptopScreen: info["hideOnLaptopScreen"] == "true", version: info["version"] ?? "",
                       accessibility: info["accessibility"] == "true",
@@ -92,7 +95,7 @@ public enum Command {
         }
 
         public var userInfo: [String: String] {
-            var info = ["id": id, "hidden": String(hidden), "dividerPlaced": String(dividerPlaced),
+            var info = ["id": id, "hidden": String(hidden), "divider": String(divider), "dividerPlaced": String(dividerPlaced),
                         "hideOnLaptopScreen": String(hideOnLaptopScreen), "version": version]
             info["laptopScreenOnly"] = laptopScreenOnly.map { String($0) }
             info["accessibility"] = String(accessibility)
@@ -102,7 +105,7 @@ public enum Command {
         }
 
         enum CodingKeys: String, CodingKey {
-            case hidden, dividerPlaced, laptopScreenOnly, hideOnLaptopScreen, version, accessibility, items, message
+            case hidden, divider, dividerPlaced, laptopScreenOnly, hideOnLaptopScreen, version, accessibility, items, message
         }
     }
 }
