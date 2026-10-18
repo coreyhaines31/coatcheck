@@ -2,7 +2,7 @@ import AppKit
 import ApplicationServices
 
 /// Rebuilds another app's menu inside Coat Check's, so a hidden icon's menu opens under the hanger.
-/// Items are read when the submenu opens, and choosing one presses the real item through Accessibility.
+/// Choosing an item presses the real one through Accessibility.
 final class MirroredMenu: NSObject, NSMenuDelegate {
     private let source: AXUIElement
     private var elements: [AXUIElement] = []
@@ -12,11 +12,13 @@ final class MirroredMenu: NSObject, NSMenuDelegate {
         self.source = source
     }
 
-    /// A menu whose contents are filled in from `source` each time it opens.
+    /// A menu filled in from `source` now, and refreshed each time it opens.
+    /// It can't start empty: macOS disables an item whose submenu has nothing in it.
     func makeMenu() -> NSMenu {
         let menu = NSMenu()
         menu.autoenablesItems = false
         menu.delegate = self
+        menuNeedsUpdate(menu)
         return menu
     }
 
