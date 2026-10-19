@@ -1,12 +1,12 @@
 <section class="hero wrap" aria-labelledby="hero-title">
-  <p class="label hero-label"><span class="dot" aria-hidden="true"></span>Free · Open source · macOS 14+</p>
+  <p class="label hero-label"><span class="dot" aria-hidden="true"></span>Free · Open source · macOS 14 to 26</p>
   <h1 id="hero-title">The notch hides your menu bar icons. <em>Coat Check hands them back.</em></h1>
   <p class="lead">On a MacBook, any menu bar icon that doesn’t fit beside the notch simply disappears. Click the hanger to see every one of them, and open its menu right from there.</p>
   <div class="actions">
     <a class="ticket" href="{{download_url}}">Download for Mac <span aria-hidden="true">↓</span></a>
     <a class="button-quiet" href="#get">Install with Homebrew</a>
   </div>
-  <p class="fine hero-fine">Free with no account · 1.5 MB download · macOS 14+ on Apple silicon</p>
+  <p class="fine hero-fine">Free with no account · 1.5 MB download · macOS 14 to 26 on Apple silicon</p>
 </section>
 
 <figure class="stage wrap" aria-labelledby="stage-caption">
@@ -224,9 +224,10 @@ Opened Disk Forecast.</code></pre>
     <details><summary>Is it safe to give it Accessibility?</summary><p>macOS only shares other apps’ menu bar icons, their menus, and the ability to click them through Accessibility. Coat Check uses it to list icons and click the ones you choose, nothing else. It never asks for Screen Recording, and the code is open for anyone to check.</p></details>
     <details><summary>Why do some apps open where their icon is?</summary><p>A few apps show a custom panel instead of a standard menu, and macOS doesn’t share those panels. Coat Check clicks the app’s icon instead, so the panel opens where macOS placed it.</p></details>
     <details><summary>Will it slow down my Mac?</summary><p>No. Coat Check sits idle until you click the hanger. Then it reads the menu bar once, shows you the list, and goes back to waiting.</p></details>
-    <details><summary>How is it different from Bartender, Ice, or Thaw?</summary><p>Those apps rearrange and hide icons, and several draw hidden icons in a second bar. Coat Check does one thing: it lists every icon, including the ones behind the notch, and opens them, without moving anything.</p></details>
+    <details><summary>How is it different from Bartender, Ice, or Thaw?</summary><p>Those apps rearrange and hide icons, and several draw hidden icons in a second bar. Coat Check does one thing: it lists every icon, including the ones behind the notch, and opens them, without moving anything. <a href="/alternatives/">See how they compare.</a></p></details>
     <details><summary>Does it work without a notch?</summary><p>Yes. On any Mac, icons that collide with a long row of app menus get hidden too. Coat Check lists those the same way.</p></details>
     <details><summary>Does it run on Intel Macs?</summary><p>Not yet. Coat Check needs an Apple silicon Mac with macOS 14 or later.</p></details>
+    <details><summary>Does it work on macOS 27?</summary><p>Coat Check is tested on macOS 14 Sonoma through 26 Tahoe. macOS 27 changed how the menu bar is drawn and added its own arrow for icons that don’t fit, so we’re testing Coat Check on it now. <a href="https://github.com/coreyhaines31/coatcheck/issues/24">Follow along on GitHub.</a></p></details>
     <details><summary>How do I uninstall it?</summary><p>Choose Quit Coat Check from the hanger’s menu and drag the app to the Trash. If you installed it with Homebrew, run <code>brew uninstall --cask coatcheck</code>.</p></details>
     <details><summary>What does it cost?</summary><p>Nothing. Coat Check is free and open source under the MIT license, with no account and no subscription.</p></details>
   </div>

@@ -1,0 +1,63 @@
+{{breadcrumbs}}
+<article class="article">
+  <header class="article-head">
+    <p class="label">Guide</p>
+    <h1>Menu bar disappeared on your Mac? Here’s how to get it back</h1>
+    <p class="lede">The whole menu bar is gone, or just some of its icons. Work down this list from the most common cause to the least.</p>
+    <p class="updated">Updated October 19, 2026 · macOS 14 Sonoma to macOS 27</p>
+  </header>
+  <div class="prose">
+    <p>First, figure out which problem you have. If the <strong>whole bar</strong> is missing, including the Apple menu and the clock, start with fix 1. If the bar is there but <strong>some icons are missing</strong>, skip to <a href="#missing-icons">missing icons</a>.</p>
+
+    <h2 id="auto-hide">1. The menu bar is set to hide</h2>
+    <p>Move the pointer to the very top of the screen. If the menu bar slides down, it’s set to hide automatically. To keep it showing:</p>
+    <ol class="steps">
+      <li><span>Open the Apple menu &gt; <strong>System Settings</strong>. If you can’t reach the menu bar, open System Settings from the Dock or press <kbd>⌘</kbd> <kbd>Space</kbd> and type “System Settings”.</span></li>
+      <li><span>Click <strong>Menu Bar</strong> on macOS 26 Tahoe and later, or <strong>Control Center</strong> on Sonoma and Sequoia.</span></li>
+      <li><span>Set <strong>Automatically hide and show the menu bar</strong> to <strong>Never</strong>.</span></li>
+    </ol>
+
+    <h2 id="full-screen">2. An app is in full screen</h2>
+    <p>Full-screen apps hide the menu bar by design. Move the pointer to the top to see it, or press <kbd>Control</kbd> <kbd>⌘</kbd> <kbd>F</kbd> to leave full screen in most apps. To keep the menu bar visible even in full screen, set the auto-hide option above to <strong>Never</strong>.</p>
+
+    <h2 id="other-display">3. It’s on your other display</h2>
+    <p>With an external display, check <strong>System Settings &gt; Desktop &amp; Dock &gt; Displays have separate Spaces</strong>. When it’s off, the menu bar appears only on your main display. Turn it on to get a menu bar on every display. You may need to log out and back in for the change to take effect.</p>
+    <p>To choose which display is the main one, open <strong>System Settings &gt; Displays</strong>, click <strong>Arrange</strong>, and drag the white bar onto the display you want.</p>
+
+    <h2 id="restart">4. The menu bar got stuck</h2>
+    <p>If the bar is blank, frozen, or missing items it should show, restart the processes that draw it. Open <strong>Terminal</strong> and run:</p>
+    <pre><code>killall ControlCenter
+killall SystemUIServer</code></pre>
+    <p>Both restart on their own in a second or two. Nothing is lost. If you’d rather not use Terminal, open <strong>Activity Monitor</strong>, find ControlCenter, and click the stop button (✕) to quit it.</p>
+
+    <h2 id="safe-mode">5. Something you installed is interfering</h2>
+    <p>Start up in safe mode, which loads only what macOS needs. If the menu bar is fine there, an app or login item is the cause.</p>
+    <ul>
+      <li><strong>Apple silicon:</strong> shut down, then press and hold the power button until you see startup options. Select your disk, hold <kbd>Shift</kbd>, and click <strong>Continue in Safe Mode</strong>.</li>
+      <li><strong>Intel:</strong> restart and hold <kbd>Shift</kbd> until you see the login window.</li>
+    </ul>
+    <p>Then restart normally and turn off recent login items in <strong>System Settings &gt; General &gt; Login Items</strong>, one at a time, until you find the one causing it.</p>
+
+    <h2 id="missing-icons">Missing icons, not a missing menu bar</h2>
+    <p>If the menu bar is there but an app’s icon isn’t, check these in order:</p>
+    <ul>
+      <li><strong>The notch is hiding it.</strong> On a MacBook with a notch, icons that don’t fit to its right don’t appear on macOS 14 to 26. macOS 27 folds them behind an arrow at the edge of the bar instead. <a href="/guides/macbook-notch-menu-bar/">How the notch hides icons.</a></li>
+      <li><strong>It was dragged off.</strong> Holding <kbd>⌘</kbd> while dragging an icon off the bar removes it. Look in the app’s settings for <strong>Show in menu bar</strong>, or quit and reopen the app.</li>
+      <li><strong>It’s switched off.</strong> On Tahoe and later, check <strong>System Settings &gt; Menu Bar &gt; Allow in the Menu Bar</strong>.</li>
+      <li><strong>The app isn’t running.</strong> Open it from Applications. Menu bar apps often have no Dock icon, so it’s easy to miss that they quit.</li>
+    </ul>
+    <aside class="note" aria-labelledby="note-title">
+      <p class="label" id="note-title">Find a hidden icon in one click</p>
+      <p>Coat Check is a free menu bar app that lists every running app’s menu bar icon, including the ones the notch hides, and opens any of them. If an app is running and still missing from the menu bar, Coat Check shows it at the top under <strong>No room in the menu bar</strong>.</p>
+    </aside>
+  </div>
+  <aside class="related" aria-labelledby="related-title">
+    <p class="label" id="related-title">Related</p>
+    <ul>
+      <li><a href="/guides/hide-menu-bar-mac/">How to hide the menu bar on Mac</a></li>
+      <li><a href="/guides/macbook-notch-menu-bar/">The MacBook notch and your menu bar icons</a></li>
+      <li><a href="/guides/customize-mac-menu-bar/">How to customize the Mac menu bar</a></li>
+    </ul>
+  </aside>
+</article>
+{{get_coatcheck}}
