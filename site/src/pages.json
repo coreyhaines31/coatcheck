@@ -67,5 +67,95 @@
     "og_description": "Seven free Mac menu bar apps that each do one job: system monitor, keep awake, disk space, Wi-Fi checks, AV checks, clipboard, and hidden icons.",
     "body_class": "article-page",
     "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/index.html",
+    "title": "Mac Menu Bar Managers Compared (October 2026)",
+    "crumb": "Alternatives",
+    "description": "Bartender, Ice, Thaw, Hidden Bar, Vanilla, Dozer, Barbee, and Coat Check compared: price, source code, features, and macOS 27 support.",
+    "og_title": "Mac menu bar managers compared",
+    "og_description": "Bartender, Ice, Thaw, Hidden Bar, Vanilla, Dozer, Barbee, and Coat Check compared: price, source code, features, and macOS 27 support.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/bartender/index.html",
+    "title": "Free Bartender Alternative for Mac — Coat Check",
+    "crumb": "Bartender",
+    "description": "Looking for a free Bartender alternative? Compare Bartender 7 and Coat Check, a free, open-source app that reaches the menu bar icons the notch hides.",
+    "og_title": "A free Bartender alternative for Mac: Coat Check",
+    "og_description": "Looking for a free Bartender alternative? Compare Bartender 7 and Coat Check, a free, open-source app that reaches the menu bar icons the notch hides.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/ice/index.html",
+    "title": "Ice Menu Bar Alternative for Mac — Coat Check",
+    "crumb": "Ice",
+    "description": "Ice hasn’t had a stable release since 2024 and doesn’t work on macOS 27. Compare Ice, its fork Thaw, and Coat Check, a free menu bar app.",
+    "og_title": "A free Ice alternative for Mac: Coat Check",
+    "og_description": "Ice hasn’t had a stable release since 2024 and doesn’t work on macOS 27. Compare Ice, its fork Thaw, and Coat Check, a free menu bar app.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/thaw/index.html",
+    "title": "Thaw vs Coat Check: Free Mac Menu Bar Apps",
+    "crumb": "Thaw",
+    "description": "Thaw is the maintained fork of Ice. Compare it with Coat Check, a free, open-source app that reaches menu bar icons the notch hides.",
+    "og_title": "Thaw vs Coat Check: two free Mac menu bar apps",
+    "og_description": "Thaw is the maintained fork of Ice. Compare it with Coat Check, a free, open-source app that reaches menu bar icons the notch hides.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/hidden-bar/index.html",
+    "title": "Hidden Bar Alternative for Notched MacBooks",
+    "crumb": "Hidden Bar",
+    "description": "Hidden Bar hides menu bar icons behind an arrow, but the notch can still cover them. Compare it with Coat Check, which lists every icon.",
+    "og_title": "A Hidden Bar alternative for notched MacBooks",
+    "og_description": "Hidden Bar hides menu bar icons behind an arrow, but the notch can still cover them. Compare it with Coat Check, which lists every icon.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/vanilla/index.html",
+    "title": "Vanilla Mac Alternative for Notched MacBooks",
+    "crumb": "Vanilla",
+    "description": "Vanilla hides menu bar icons behind two dots, which the notch can hide too. Compare Vanilla and Vanilla Pro with Coat Check, a free open-source app.",
+    "og_title": "A Vanilla alternative for notched MacBooks",
+    "og_description": "Vanilla hides menu bar icons behind two dots, which the notch can hide too. Compare Vanilla and Vanilla Pro with Coat Check, a free open-source app.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/dozer/index.html",
+    "title": "Dozer Alternative for Mac Menu Bar Icons",
+    "crumb": "Dozer",
+    "description": "Dozer hasn’t been updated since 2020. Compare it with Coat Check, a maintained, free, open-source app that reaches every menu bar icon.",
+    "og_title": "A Dozer alternative for Mac menu bar icons",
+    "og_description": "Dozer hasn’t been updated since 2020. Compare it with Coat Check, a maintained, free, open-source app that reaches every menu bar icon.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/barbee/index.html",
+    "title": "Free Barbee Alternative for Mac — Coat Check",
+    "crumb": "Barbee",
+    "description": "Barbee hides menu bar icons, with paid upgrades, and is reported broken on macOS 27. Compare it with Coat Check, free with nothing to unlock.",
+    "og_title": "A free Barbee alternative for Mac: Coat Check",
+    "og_description": "Barbee hides menu bar icons, with paid upgrades, and is reported broken on macOS 27. Compare it with Coat Check, free with nothing to unlock.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "alternatives/bartender-vs-ice/index.html",
+    "title": "Bartender vs Ice: Which Mac Menu Bar Manager?",
+    "crumb": "Bartender vs Ice",
+    "description": "Bartender vs Ice in October 2026: price, features, permissions, and macOS 27 support, plus a free option for icons hidden by the notch.",
+    "og_title": "Bartender vs Ice: which Mac menu bar manager?",
+    "og_description": "Bartender vs Ice in October 2026: price, features, permissions, and macOS 27 support, plus a free option for icons hidden by the notch.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
   }
 ]

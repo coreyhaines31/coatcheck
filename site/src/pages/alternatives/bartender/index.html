@@ -1,0 +1,50 @@
+{{breadcrumbs}}
+<article class="article">
+  <header class="article-head">
+    <p class="label">Alternatives</p>
+    <h1>A free Bartender alternative for Mac: Coat Check</h1>
+    <p class="lede">Bartender is the best-known menu bar manager, and it does a lot. If what you need is to reach the icons the notch hides, Coat Check does that for free, and it’s open source.</p>
+    <p class="updated">Updated October 19, 2026</p>
+  </header>
+  <div class="prose">
+    <h2 id="short">The short version</h2>
+    <p><strong>Choose Bartender</strong> if you want full control of your menu bar: hide icons on a schedule or a trigger, search them, change spacing, and keep profiles for different setups. It costs $24.99 once for version 7, or $19.99 a year for Bartender Pro.</p>
+    <p><strong>Choose Coat Check</strong> if your problem is simpler: icons disappear behind the notch and you want them back without reorganizing anything. Click the hanger, see every icon, and open the one you need, including its own menu. It’s free and MIT licensed.</p>
+
+    <h2 id="compare">Coat Check vs Bartender</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col" class="us">Coat Check</th><th scope="col">Bartender</th></tr></thead>
+        <tbody><tr><th scope="row">Price</th><td class="us">Free</td><td>$24.99 once for Bartender 7, or Bartender Pro at $19.99 a year; 4-week trial</td></tr><tr><th scope="row">Source code</th><td class="us">Open source (MIT)</td><td>Closed source</td></tr><tr><th scope="row">Reach icons the notch hides</th><td class="us">A list of every icon under the hanger, hidden ones first, each with its own menu</td><td>Hidden icons appear in the Bartender Bar on hover, click, or hotkey</td></tr><tr><th scope="row">Hide icons you choose</th><td class="us">Optional divider (macOS 14 to 26)</td><td>Yes, plus always-hidden icons</td></tr><tr><th scope="row">Rearrange icons</th><td class="us">No; your layout stays as you set it</td><td>Yes</td></tr><tr><th scope="row">Search</th><td class="us">No; the <code>coatcheck</code> command opens icons by name</td><td>Yes (Command Bar)</td></tr><tr><th scope="row">Automation</th><td class="us">Command line</td><td>Triggers, Shortcuts, AppleScript, profiles</td></tr><tr><th scope="row">Screen Recording permission</th><td class="us">Not needed</td><td>Optional in version 7; used for icon snapshots</td></tr><tr><th scope="row">macOS 27 (October 2026)</th><td class="us">Being tested</td><td>Bartender 7 supports it, with some features still in beta</td></tr></tbody>
+      </table>
+    </div>
+
+    <h2 id="trust">Why some people left Bartender</h2>
+    <p>In 2024 Bartender’s original developer sold the app to a new owner, Applause, without telling customers. People noticed when the app’s signing certificate changed and an analytics framework appeared in an update. The developer later apologized. Menu bar managers often hold Accessibility and Screen Recording permissions, so many users moved to open-source apps they could inspect.</p>
+    <p>Coat Check asks only for Accessibility, which it needs to list other apps’ icons and click them. It never asks for Screen Recording, and every line is <a href="https://github.com/coreyhaines31/coatcheck">on GitHub</a>.</p>
+
+    <h2 id="different">What works differently</h2>
+    <ul>
+      <li><strong>Bartender moves icons; Coat Check doesn’t.</strong> Bartender hides icons by managing your menu bar layout. Coat Check leaves your layout alone and adds one list of everything.</li>
+      <li><strong>Coat Check shows an app’s real menu.</strong> For apps that expose their menu, you choose the item right from Coat Check’s list, without first revealing a hidden bar.</li>
+      <li><strong>Bartender does far more.</strong> Triggers, search, spacing, and profiles have no equivalent in Coat Check, by design.</li>
+    </ul>
+    <aside class="note" aria-labelledby="fit-title">
+      <p class="label" id="fit-title">Using both</p>
+      <p>Coat Check doesn’t move or hide anything unless you turn on its divider, so it can run alongside Bartender. Use Bartender to arrange and hide icons, and Coat Check to open any icon from one list.</p>
+    </aside>
+    <h2 id="sources">Sources</h2>
+    <ul class="fine"><li><a href="https://www.macbartender.com/Bartender7/Blog/meet-bartender-7/">Bartender 7 announcement</a></li><li><a href="https://www.macbartender.com">Bartender</a></li><li><a href="https://mjtsai.com/blog/2024/06/05/">Michael Tsai on the 2024 sale</a></li></ul>
+  </div>
+  <aside class="related" aria-labelledby="related-title">
+    <p class="label" id="related-title">More comparisons</p>
+    <ul>
+      <li><a href="/alternatives/ice/">Coat Check vs Ice</a></li>
+      <li><a href="/alternatives/thaw/">Coat Check vs Thaw</a></li>
+      <li><a href="/alternatives/hidden-bar/">Coat Check vs Hidden Bar</a></li>
+      <li><a href="/alternatives/vanilla/">Coat Check vs Vanilla</a></li>
+      <li><a href="/alternatives/">All menu bar managers compared</a></li>
+    </ul>
+  </aside>
+</article>
+{{get_coatcheck}}
