@@ -28,7 +28,7 @@ app = {
     'description': 'A free, open-source macOS menu bar manager that lists every menu bar icon, including the ones the notch hides, and opens their menus.',
     'url': site,
     'applicationCategory': 'UtilitiesApplication',
-    'operatingSystem': 'macOS 14 or later (Apple silicon)',
+    'operatingSystem': 'macOS 14 to 26 (Apple silicon)',
     'license': 'https://opensource.org/licenses/MIT',
     'downloadUrl': 'https://github.com/coreyhaines31/coatcheck/releases/latest',
     'image': site + 'og.png',
