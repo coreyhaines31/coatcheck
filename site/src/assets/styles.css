@@ -486,3 +486,54 @@ details[open] > summary::after {rotate: 45deg}
   .trust {margin-top: calc(-1 * clamp(1.5rem, 4vw, 3rem))}
 }
 .fit-note {margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .875rem; color: var(--muted)}
+
+/* Guides and alternatives: one reading column on the same paper. */
+.crumbs {padding-top: clamp(2rem, 5vw, 3rem)}
+.crumbs ol {display: flex; flex-wrap: wrap; gap: .375rem; margin: 0; padding: 0; list-style: none; font-size: .8125rem; color: var(--muted)}
+.crumbs li + li::before {content: "/"; margin-right: .375rem; color: var(--line)}
+.crumbs a:hover {color: var(--ink)}
+.article {width: min(44rem, 100% - 10%); margin-inline: auto; padding-block: clamp(2rem, 5vw, 3.5rem) clamp(4rem, 8vw, 6rem)}
+.article-head {display: grid; gap: 1rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem)}
+.article-head h1, .hub-head h1 {font-family: var(--serif); font-weight: 500; font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.08; letter-spacing: -.03em}
+.article-head .lede, .hub-head .lede {font-size: 1.1875rem; line-height: 1.55; color: var(--body)}
+.prose {display: grid; gap: 1.125rem; color: var(--body); font-size: 1.0625rem}
+.prose h2 {margin-top: 1.75rem; font-family: var(--serif); font-weight: 500; font-size: clamp(1.625rem, 3vw, 2rem); line-height: 1.15; letter-spacing: -.02em; color: var(--ink)}
+.prose h3 {margin-top: .75rem; font-size: 1.0625rem; font-weight: 650; color: var(--ink)}
+.prose strong {color: var(--ink); font-weight: 600}
+.prose a:not(.ticket):not(.button-quiet) {color: var(--ink); text-decoration: underline; text-decoration-color: var(--red-soft); text-underline-offset: .2em}
+.prose a:not(.ticket):not(.button-quiet):hover {text-decoration-color: var(--red-deep)}
+.prose ul, .prose ol {display: grid; gap: .5rem; margin: 0; padding-left: 1.375rem}
+.prose li::marker {color: var(--muted)}
+.prose code {padding: .125rem .375rem; border-radius: .375rem; background: #ffffffa6; box-shadow: inset 0 0 0 1px var(--line); overflow-wrap: anywhere}
+.prose pre {margin: 0; padding: 1rem 1.25rem; overflow-x: auto; border-radius: 1rem; background: var(--espresso); color: #f4ece4; font-size: .875rem; line-height: 1.6}
+.prose pre code {padding: 0; background: none; box-shadow: none; overflow-wrap: normal}
+kbd {padding: .0625rem .375rem; border-radius: .3125rem; background: #fff; box-shadow: inset 0 0 0 1px var(--line), 0 1px 0 var(--line); font-family: var(--sans); font-size: .875em}
+.steps {counter-reset: step; list-style: none; padding-left: 0 !important}
+.steps > li {counter-increment: step; display: grid; grid-template-columns: 1.75rem 1fr; gap: .75rem; align-items: start}
+.steps > li::before {content: counter(step); display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: .8125rem; font-weight: 650}
+.version {display: inline-block; margin-right: .5rem; padding: .1875rem .5625rem; border-radius: 999px; background: var(--paper-deep); color: var(--ink); font-size: .75rem; font-weight: 600; letter-spacing: .02em; vertical-align: .125rem}
+.note {display: grid; gap: .625rem; padding: 1.375rem 1.5rem; border-radius: 1.25rem; background: var(--glass); box-shadow: var(--glass-edge), var(--lift); color: var(--body)}
+.note .label {color: var(--red-deep)}
+.note .actions {display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .375rem}
+.table-wrap {overflow-x: auto; border-radius: 1rem; background: #ffffff8c; box-shadow: inset 0 0 0 1px var(--line)}
+.table-wrap table {width: 100%; min-width: 34rem; border-collapse: collapse; font-size: .9375rem}
+.table-wrap th, .table-wrap td {padding: .75rem 1rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top}
+.table-wrap thead th {font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted)}
+.table-wrap tbody th {font-weight: 600; color: var(--ink)}
+.table-wrap tr:last-child > * {border-bottom: 0}
+.table-wrap .us {background: #f6d3d240}
+.updated {font-size: .8125rem; color: var(--muted)}
+.related {display: grid; gap: .75rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: 1.5rem; border-top: 1px solid var(--line)}
+.related ul {display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none}
+.related a {font-weight: 550; color: var(--ink)}
+.related a:hover {color: var(--red-deep)}
+.hub-head {display: grid; gap: 1rem; max-width: 44rem; padding-block: clamp(2rem, 5vw, 3.5rem) clamp(2rem, 4vw, 3rem)}
+.hub-grid {display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1.25rem; margin: 0 auto clamp(4rem, 8vw, 6rem); padding: 0; list-style: none}
+.hub-grid a {display: grid; gap: .5rem; height: 100%; padding: 1.5rem; border-radius: 1.25rem; background: var(--glass); box-shadow: var(--glass-edge), var(--lift); transition: translate .2s}
+.hub-grid a:hover {translate: 0 -2px}
+.hub-grid strong {font-family: var(--serif); font-size: 1.3125rem; font-weight: 500; letter-spacing: -.01em; color: var(--ink)}
+.hub-grid span {font-size: .9375rem; color: var(--body); line-height: 1.55}
+.article + .get, .hub-grid + .get {margin-top: 0}
+@media (prefers-reduced-motion: reduce) {
+  .hub-grid a {transition: none}
+}
