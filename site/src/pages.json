@@ -7,5 +7,65 @@
     "og_description": "The notch hides your menu bar icons. Coat Check hands them back. Free and open source for macOS 14 and later.",
     "body_class": "home",
     "updated": "2026-10-17"
+  },
+  {
+    "path": "guides/index.html",
+    "title": "Mac Menu Bar Guides: Hide, Customize, Fix — Coat Check",
+    "crumb": "Guides",
+    "description": "How to hide, customize, and fix the Mac menu bar on macOS 14 to 27, and what the MacBook notch does to your menu bar icons.",
+    "og_title": "Mac menu bar guides",
+    "og_description": "How to hide, customize, and fix the Mac menu bar on macOS 14 to 27, and what the MacBook notch does to your menu bar icons.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "guides/hide-menu-bar-mac/index.html",
+    "title": "How to Hide the Menu Bar on Mac (macOS 14–27)",
+    "crumb": "Hide the menu bar",
+    "description": "Hide the Mac menu bar always, on the desktop, or only in full screen. Where the setting lives on Sonoma, Sequoia, Tahoe, and macOS 27, and how to get it back.",
+    "og_title": "How to hide the menu bar on Mac",
+    "og_description": "Hide the Mac menu bar always, on the desktop, or only in full screen. Where the setting lives on Sonoma, Sequoia, Tahoe, and macOS 27, and how to get it back.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "guides/customize-mac-menu-bar/index.html",
+    "title": "How to Customize the Mac Menu Bar — Coat Check",
+    "crumb": "Customize the menu bar",
+    "description": "Rearrange and remove Mac menu bar icons, show Bluetooth or battery percentage, and turn off app icons on macOS 14 Sonoma through macOS 27.",
+    "og_title": "How to customize the Mac menu bar",
+    "og_description": "Rearrange and remove Mac menu bar icons, show Bluetooth or battery percentage, and turn off app icons on macOS 14 Sonoma through macOS 27.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "guides/menu-bar-disappeared-mac/index.html",
+    "title": "Mac Menu Bar Disappeared? How to Get It Back",
+    "crumb": "Menu bar disappeared",
+    "description": "Menu bar or its icons gone on your Mac? Check auto-hide, full screen, displays, a stuck Control Center, and the notch, from most to least common.",
+    "og_title": "Menu bar disappeared on your Mac? Here’s how to get it back",
+    "og_description": "Menu bar or its icons gone on your Mac? Check auto-hide, full screen, displays, a stuck Control Center, and the notch, from most to least common.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "guides/macbook-notch-menu-bar/index.html",
+    "title": "MacBook Notch Hiding Menu Bar Icons? How to Fix It",
+    "crumb": "The notch and your icons",
+    "description": "On a MacBook with a notch, menu bar icons that don’t fit vanish. How to tell, how to make room, and how to reach every hidden icon.",
+    "og_title": "The MacBook notch is hiding your menu bar icons",
+    "og_description": "On a MacBook with a notch, menu bar icons that don’t fit vanish. How to tell, how to make room, and how to reach every hidden icon.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
+  },
+  {
+    "path": "guides/best-mac-menu-bar-apps/index.html",
+    "title": "The Best Free Mac Menu Bar Apps — Coat Check",
+    "crumb": "Best menu bar apps",
+    "description": "Seven free Mac menu bar apps that each do one job: system monitor, keep awake, disk space, Wi-Fi checks, AV checks, clipboard, and hidden icons.",
+    "og_title": "The best free Mac menu bar apps",
+    "og_description": "Seven free Mac menu bar apps that each do one job: system monitor, keep awake, disk space, Wi-Fi checks, AV checks, clipboard, and hidden icons.",
+    "body_class": "article-page",
+    "updated": "2026-10-19"
   }
 ]

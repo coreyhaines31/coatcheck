@@ -1,0 +1,56 @@
+{{breadcrumbs}}
+<article class="article">
+  <header class="article-head">
+    <p class="label">Guide</p>
+    <h1>The MacBook notch is hiding your menu bar icons</h1>
+    <p class="lede">On a MacBook with a notch, menu bar icons only fit to the right of the camera. When they run out of room, macOS hides the extras. Here’s how to tell, how to make room, and how to reach the rest.</p>
+    <p class="updated">Updated October 19, 2026 · macOS 14 Sonoma to macOS 27</p>
+  </header>
+  <div class="prose">
+    <h2 id="which-macs">Which Macs have a notch</h2>
+    <p>Every 14-inch and 16-inch MacBook Pro since 2021, and every MacBook Air since the M2 in 2022, including the 15-inch models. The 13-inch M2 MacBook Pro has no notch. Apple calls these screens Liquid Retina (MacBook Air) and Liquid Retina XDR (MacBook Pro).</p>
+
+    <h2 id="what-happens">What happens to icons that don’t fit</h2>
+    <p>Menu bar icons line up from the right edge of the screen toward the notch. App menus (File, Edit, View) fill in from the left. Once the icons reach the notch, there’s nowhere left for them to go.</p>
+    <p><span class="version">macOS 14 to 26</span>The icons that don’t fit simply aren’t shown. There’s no overflow menu, no arrow, and no sign anything is missing. The app is still running; you just can’t click its icon. Apple’s own support page says menu bar items can “appear blocked or hidden behind the camera housing.” On a Mac without a notch the same thing can happen when an app’s menus are long enough to reach the icons.</p>
+    <p><span class="version">macOS 27</span>macOS now folds icons that don’t fit behind a small overflow indicator at the edge of the menu bar. Click it and the hidden icons expand to the left of the notch, over the app menus. Click again to put them away. You can’t choose which icons go behind it.</p>
+
+    <h2 id="tell">How to tell if an icon is hidden</h2>
+    <p>If an app is running (it shows in Activity Monitor, or opening it again does nothing visible) but its icon is nowhere in the menu bar, the notch is the likely cause. A quick test: quit an app whose icon you can see, and watch whether a missing icon appears in its place.</p>
+
+    <h2 id="make-room">Make more room in the menu bar</h2>
+    <h3>Remove icons you don’t use</h3>
+    <p>Hold <kbd>⌘</kbd> and drag an icon off the menu bar. Turn off Apple’s items you don’t need, like Spotlight or Siri, in System Settings. On macOS 26 Tahoe and later, you can also switch off other apps’ icons under <strong>System Settings &gt; Menu Bar &gt; Allow in the Menu Bar</strong>. <a href="/guides/customize-mac-menu-bar/">See all the menu bar settings.</a></p>
+    <h3>Put the icons you use most on the right</h3>
+    <p>Icons closest to the right edge are the last to be hidden. Hold <kbd>⌘</kbd> and drag the ones you rely on toward the clock.</p>
+    <h3>Tighten the spacing between icons</h3>
+    <p>macOS has two hidden settings for the gap around each icon. Smaller values fit more icons. In Terminal, run:</p>
+    <pre><code>defaults -currentHost write -globalDomain NSStatusItemSpacing -int 12
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 8</code></pre>
+    <p>Then log out and back in. To undo it, run:</p>
+    <pre><code>defaults -currentHost delete -globalDomain NSStatusItemSpacing
+defaults -currentHost delete -globalDomain NSStatusItemSelectionPadding</code></pre>
+    <p>and log out again. These aren’t official settings. They work on macOS 14 to 26, and there are early reports that they stopped working on macOS 27.</p>
+    <h3>Use a “More Space” resolution</h3>
+    <p>In <strong>System Settings &gt; Displays</strong>, choose a resolution labeled <strong>More Space</strong>. Everything gets smaller, so more icons fit, at the cost of smaller text.</p>
+
+    <h2 id="full-screen-apps">Apps that put their menus behind the notch</h2>
+    <p>Some older apps don’t know about the notch and put menus where the camera is. Apple’s fix: quit the app, select it in Finder, choose <strong>File &gt; Get Info</strong>, and turn on <strong>Scale to fit below built-in camera</strong>. The app then runs in a shorter area below the notch. The option disappears once the developer updates the app.</p>
+
+    <h2 id="reach">Reach every icon without rearranging anything</h2>
+    <p>Making room only goes so far. If you run a lot of menu bar apps, some will always be out of sight. That’s what <a href="/">Coat Check</a> is for: click its hanger and you see every menu bar icon, with the ones macOS had no room for listed first under <strong>No room in the menu bar</strong>. Point to an app to see its own menu right there, and choose an item. Coat Check clicks it for you. Nothing in your menu bar moves.</p>
+    <aside class="note" aria-labelledby="note-title">
+      <p class="label" id="note-title">Coat Check and macOS 27</p>
+      <p>Coat Check is tested on macOS 14 to 26, where hidden icons have no overflow at all. macOS 27 added Apple’s overflow indicator and changed how the menu bar is drawn, and we’re testing Coat Check there now. <a href="https://github.com/coreyhaines31/coatcheck/issues/24">Follow along on GitHub.</a></p>
+    </aside>
+  </div>
+  <aside class="related" aria-labelledby="related-title">
+    <p class="label" id="related-title">Related</p>
+    <ul>
+      <li><a href="/guides/customize-mac-menu-bar/">How to customize the Mac menu bar</a></li>
+      <li><a href="/guides/menu-bar-disappeared-mac/">Menu bar disappeared on your Mac?</a></li>
+      <li><a href="/alternatives/">Menu bar managers compared</a></li>
+    </ul>
+  </aside>
+</article>
+{{get_coatcheck}}
