@@ -1,0 +1,70 @@
+{{breadcrumbs}}
+<article class="article">
+  <header class="article-head">
+    <p class="label">Guide</p>
+    <h1>How to customize the Mac menu bar</h1>
+    <p class="lede">Rearrange and remove icons, choose which of Apple’s items appear, and turn off other apps’ icons, on macOS 14 Sonoma through macOS 27.</p>
+    <p class="updated">Updated October 19, 2026</p>
+  </header>
+  <div class="prose">
+    <p>The right side of the menu bar holds status icons: Apple’s, like Wi-Fi and Battery, and other apps’. You can rearrange most of them, remove the ones you don’t use, and choose what Apple’s items show. Where the settings live changed in macOS 26 Tahoe, so the steps below are split by version.</p>
+
+    <h2 id="rearrange">Rearrange or remove icons</h2>
+    <p>This works the same on every version:</p>
+    <ul>
+      <li><strong>Move an icon:</strong> hold <kbd>⌘</kbd> and drag it left or right.</li>
+      <li><strong>Remove an icon:</strong> hold <kbd>⌘</kbd> and drag it down, off the menu bar, then let go.</li>
+    </ul>
+    <p>The Clock and Control Center stay put. To bring back an Apple icon you removed, turn it on again in settings, below. To bring back another app’s icon, look in that app’s settings for an option like <strong>Show in menu bar</strong>, or quit and reopen the app.</p>
+
+    <h2 id="tahoe">Choose Apple’s items on macOS 26 Tahoe and macOS 27</h2>
+    <ol class="steps">
+      <li><span>Choose the Apple menu &gt; <strong>System Settings</strong>, then click <strong>Menu Bar</strong> in the sidebar.</span></li>
+      <li><span>Under <strong>Menu Bar Controls</strong>, turn items on or off: Siri, Spotlight, Wi-Fi, Bluetooth, Time Machine, VPN, and Weather.</span></li>
+      <li><span>For <strong>Focus, Screen Mirroring, Display, Sound, and Now Playing</strong>, choose whether each one always shows or shows only when it’s active.</span></li>
+      <li><span>On a laptop, click <strong>Battery Options</strong> to show the battery percentage.</span></li>
+    </ol>
+    <p><strong>Other apps’ icons:</strong> Tahoe added <strong>Allow in the Menu Bar</strong> to the same pane, with a switch for every app that puts an icon in the menu bar. Turn one off and its icon disappears until you turn it back on. Sonoma and Sequoia have no system-wide switch like this.</p>
+    <p><strong>From Control Center:</strong> click Control Center in the menu bar, then <strong>Edit Controls</strong>. Control-click a control and choose <strong>Add to Menu Bar</strong> to give it its own icon.</p>
+
+    <h2 id="sonoma-sequoia">Choose Apple’s items on macOS 14 Sonoma and macOS 15 Sequoia</h2>
+    <ol class="steps">
+      <li><span>Choose the Apple menu &gt; <strong>System Settings</strong>, then click <strong>Control Center</strong> in the sidebar.</span></li>
+      <li><span>For <strong>Wi-Fi, Bluetooth, AirDrop, Focus, Stage Manager, Screen Mirroring, Display, Sound, and Now Playing</strong>, choose <strong>Show in Menu Bar</strong> or <strong>Don’t Show in Menu Bar</strong>. Focus, Screen Mirroring, Display, Sound, and Now Playing can also <strong>Show When Active</strong>.</span></li>
+      <li><span>Under <strong>Other Modules</strong>, turn on <strong>Show in Menu Bar</strong> for Accessibility Shortcuts, Battery, Hearing, Fast User Switching, Keyboard Brightness, or Music Recognition.</span></li>
+      <li><span>Under <strong>Menu Bar Only</strong>, choose whether Spotlight, Siri, Time Machine, and VPN appear. Sequoia adds Weather.</span></li>
+    </ol>
+
+    <h2 id="common">Common changes</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">To show</th><th scope="col">Sonoma and Sequoia</th><th scope="col">Tahoe and macOS 27</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Bluetooth</th><td>Control Center &gt; Bluetooth &gt; Show in Menu Bar</td><td>Menu Bar &gt; Bluetooth on</td></tr>
+          <tr><th scope="row">Battery percentage</th><td>Control Center &gt; Battery &gt; Show Percentage</td><td>Menu Bar &gt; Battery Options &gt; Show Percentage</td></tr>
+          <tr><th scope="row">Sound</th><td>Control Center &gt; Sound &gt; Show in Menu Bar</td><td>Menu Bar &gt; Sound, then Always Show</td></tr>
+          <tr><th scope="row">Wi-Fi</th><td>Control Center &gt; Wi-Fi &gt; Show in Menu Bar</td><td>Menu Bar &gt; Wi-Fi on</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="clock">Change the clock</h2>
+    <p>The clock is always shown. In the same settings pane, click <strong>Clock Options</strong> to show or hide the date and day of the week, switch between a digital and an analog clock, or have your Mac announce the time.</p>
+
+    <h2 id="room">When there isn’t room for every icon</h2>
+    <p>On a MacBook with a notch, the space for icons ends at the notch. On macOS 14 to 26, icons that don’t fit just don’t appear, with no sign they’re missing. macOS 27 folds them behind an arrow at the edge of the menu bar instead. <a href="/guides/macbook-notch-menu-bar/">Here’s how that works, and how to make more room.</a></p>
+    <aside class="note" aria-labelledby="note-title">
+      <p class="label" id="note-title">Reach every icon</p>
+      <p>Coat Check is a free, open-source menu bar app. Click its hanger to see every menu bar icon, with the ones that didn’t fit listed first, and open any of them, including its own menu. It doesn’t rearrange anything you set up here.</p>
+    </aside>
+  </div>
+  <aside class="related" aria-labelledby="related-title">
+    <p class="label" id="related-title">Related</p>
+    <ul>
+      <li><a href="/guides/hide-menu-bar-mac/">How to hide the menu bar on Mac</a></li>
+      <li><a href="/guides/macbook-notch-menu-bar/">The MacBook notch and your menu bar icons</a></li>
+      <li><a href="/alternatives/">Menu bar managers compared</a></li>
+    </ul>
+  </aside>
+</article>
+{{get_coatcheck}}

@@ -19,7 +19,7 @@ Download the DMG from [coatcheckformac.com](https://coatcheckformac.com) or the 
 brew install coreyhaines31/tap/coatcheck
 ```
 
-Needs macOS 14 or later on an Apple silicon Mac. Coat Check updates itself.
+Needs an Apple silicon Mac. Tested on macOS 14 Sonoma through 26 Tahoe; macOS 27 support is being tested in [#24](https://github.com/coreyhaines31/coatcheck/issues/24). Coat Check updates itself.
 
 ## How to use it
 
