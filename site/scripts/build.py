@@ -35,6 +35,42 @@ app = {
     'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'},
 }
 
+sections = {'guides': 'Guides', 'alternatives': 'Alternatives'}
+organization = {'@type': 'Organization', '@id': site + '#maker', 'name': 'Coat Check', 'url': site}
+
+
+def crumbs(page, url):
+    trail = [('Coat Check', site)]
+    parts = page['path'].split('/')
+    if len(parts) > 2:
+        trail.append((sections[parts[0]], f'{site}{parts[0]}/'))
+    trail.append((page['crumb'], url))
+    return trail
+
+
+def breadcrumbs(page, url):
+    if page['path'] == 'index.html':
+        return ''
+    *links, (current, _) = crumbs(page, url)
+    items = ''.join(f'<li><a href="/{link.removeprefix(site)}">{escape(name)}</a></li>' for name, link in links)
+    return f'<nav class="crumbs wrap" aria-label="Breadcrumb"><ol>{items}<li aria-current="page">{escape(current)}</li></ol></nav>'
+
+
+def structured_data(page, url):
+    if page['path'] == 'index.html':
+        return json.dumps(app, ensure_ascii=False).replace('</', '<\\/')
+    graph = [app, {'@type': 'BreadcrumbList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': i, 'name': name, 'item': link}
+        for i, (name, link) in enumerate(crumbs(page, url), 1)]}]
+    if len(page['path'].split('/')) == 3:
+        graph += [organization, {
+            '@type': 'TechArticle', 'headline': page['og_title'], 'description': page['description'],
+            'url': url, 'mainEntityOfPage': url, 'image': site + 'og.png', 'dateModified': page['updated'],
+            'inLanguage': 'en', 'author': {'@id': organization['@id']}, 'publisher': {'@id': organization['@id']},
+        }]
+    return json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False).replace('</', '<\\/')
+
+
 expected = {Path(page['path']) for page in pages} | {Path('sitemap.xml')}
 assets = {path.relative_to(source / 'assets') for path in (source / 'assets').rglob('*') if path.is_file()}
 if output.exists():
@@ -50,8 +86,9 @@ for page in pages:
     values = {key: escape(page[key], quote=True) for key in ('title', 'description', 'og_title', 'og_description', 'body_class')}
     values.update(shared)
     values['url'] = site + path.removesuffix('index.html')
-    values['structured_data'] = json.dumps(app, ensure_ascii=False).replace('</', '<\\/')
-    values['content'] = fill((source / 'pages' / path).read_text().strip())
+    values['structured_data'] = structured_data(page, values['url'])
+    content = (source / 'pages' / path).read_text().strip().replace('{{breadcrumbs}}', breadcrumbs(page, values['url']))
+    values['content'] = fill(content)
     target = output / path
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(layout.substitute(values))
