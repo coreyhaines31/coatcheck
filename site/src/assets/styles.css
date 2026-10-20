@@ -414,7 +414,7 @@ details[open] > summary::after {rotate: 45deg}
 .site-footer {padding-bottom: 2.5rem}
 .footer-apps {padding: 2.5rem 0; border-top: 1px solid var(--line)}
 .footer-apps > p {margin-bottom: 1.25rem; font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted)}
-.footer-apps ul {display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem 2rem; margin: 0; padding: 0; list-style: none}
+.footer-apps ul {display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem 2rem; margin: 0; padding: 0; list-style: none}
 .footer-apps a {display: grid; gap: .125rem}
 .footer-apps strong {font-size: .875rem; font-weight: 600}
 .footer-apps span {font-size: .8125rem; color: var(--muted)}
