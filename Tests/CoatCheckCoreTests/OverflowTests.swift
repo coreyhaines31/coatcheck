@@ -67,4 +67,9 @@ final class OverflowTests: XCTestCase {
     func testDisplayNameKeepsStatusText() {
         XCTAssertEqual(Overflow.displayName(app: "Disk Forecast", label: "85 GB").detail, "85 GB")
     }
+
+    func testAlphabeticalIgnoresCaseAndMenuBarPosition() {
+        let names = ["Granola", "Stream Deck", "1Password", "cursor", "Green Room"]
+        XCTAssertEqual(Overflow.alphabetical(names).map { names[$0] }, ["1Password", "cursor", "Granola", "Green Room", "Stream Deck"])
+    }
 }

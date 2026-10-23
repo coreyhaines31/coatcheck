@@ -114,8 +114,9 @@ final class MenuBarController: NSObject {
         mirrors = []
         if MenuBarItems.isTrusted {
             listed = MenuBarItems.all()
-            let hidden = listed.indices.filter { !listed[$0].isVisible }
-            let shown = listed.indices.filter { listed[$0].isVisible }
+            let order = Overflow.alphabetical(listed.map { Overflow.displayName(app: $0.appName, label: $0.label).name })
+            let hidden = order.filter { !listed[$0].isVisible }
+            let shown = order.filter { listed[$0].isVisible }
             if hidden.isEmpty {
                 menu.addItem(.sectionHeader(title: "Every icon fits in the menu bar"))
             } else {

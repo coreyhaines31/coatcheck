@@ -1,4 +1,4 @@
-import CoreGraphics
+import Foundation
 
 /// Finding the menu bar icons macOS had no room for, and picking one by name.
 public enum Overflow {
@@ -36,5 +36,10 @@ public enum Overflow {
             return (parts[0], parts.count > 1 ? parts[1] : nil)
         }
         return (app, rest.isEmpty || rest == app ? nil : rest)
+    }
+
+    /// The order to list icons in: by name, the way Finder sorts, so "Green Room" sits among the G's.
+    public static func alphabetical(_ names: [String]) -> [Int] {
+        names.indices.sorted { names[$0].localizedStandardCompare(names[$1]) == .orderedAscending }
     }
 }
