@@ -8,7 +8,7 @@ root = Path(__file__).resolve().parent.parent
 source = root / 'src'
 output = root / 'dist'
 layout = Template((source / 'layouts/base.html').read_text())
-release = '0.1.1'
+release = '0.1.2'
 download_url = f'https://github.com/coreyhaines31/coatcheck/releases/download/v{release}/CoatCheck-{release}-arm64.dmg'
 partials = {name: (source / f'layouts/{name}.html').read_text().strip() for name in ('header', 'footer', 'get-coatcheck')}
 
