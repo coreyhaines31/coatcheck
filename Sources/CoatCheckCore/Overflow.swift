@@ -39,7 +39,14 @@ public enum Overflow {
     }
 
     /// The order to list icons in: by name, the way Finder sorts, so "Green Room" sits among the G's.
+    /// Icons with the same name keep their menu bar order.
     public static func alphabetical(_ names: [String]) -> [Int] {
-        names.indices.sorted { names[$0].localizedStandardCompare(names[$1]) == .orderedAscending }
+        names.indices.sorted {
+            switch names[$0].localizedStandardCompare(names[$1]) {
+            case .orderedAscending: true
+            case .orderedDescending: false
+            case .orderedSame: $0 < $1
+            }
+        }
     }
 }

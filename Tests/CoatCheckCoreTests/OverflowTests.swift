@@ -72,4 +72,8 @@ final class OverflowTests: XCTestCase {
         let names = ["Granola", "Stream Deck", "1Password", "cursor", "Green Room"]
         XCTAssertEqual(Overflow.alphabetical(names).map { names[$0] }, ["1Password", "cursor", "Granola", "Green Room", "Stream Deck"])
     }
+
+    func testAlphabeticalKeepsMenuBarOrderForSameName() {
+        XCTAssertEqual(Overflow.alphabetical(["Wi‑Fi", "Battery", "Battery"]), [1, 2, 0])
+    }
 }
