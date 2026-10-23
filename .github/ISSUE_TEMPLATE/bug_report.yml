@@ -20,7 +20,7 @@ body:
     attributes:
       label: Coat Check version
       description: Settings shows it at the bottom.
-      placeholder: "0.1.1"
+      placeholder: "0.1.2"
     validations:
       required: true
   - type: input
