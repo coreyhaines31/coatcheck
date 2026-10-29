@@ -56,6 +56,21 @@ def breadcrumbs(page, url):
     return f'<nav class="crumbs wrap" aria-label="Breadcrumb"><ol>{items}<li aria-current="page">{escape(current)}</li></ol></nav>'
 
 
+def og_video(path):
+    """Only the homepage gets the animated preview; other pages keep the static card."""
+    if path != 'index.html':
+        return ''
+    video = site + 'og.mp4'
+    return ''.join(f'  <meta {attr}>\n' for attr in (
+        f'property="og:video" content="{video}"',
+        f'property="og:video:secure_url" content="{video}"',
+        'property="og:video:type" content="video/mp4"',
+        'property="og:video:width" content="1200"',
+        'property="og:video:height" content="630"',
+        f'name="twitter:image" content="{site}og-video.png"',
+    ))
+
+
 def structured_data(page, url):
     if page['path'] == 'index.html':
         return json.dumps(app, ensure_ascii=False).replace('</', '<\\/')
@@ -87,6 +102,8 @@ for page in pages:
     values.update(shared)
     values['url'] = site + path.removesuffix('index.html')
     values['structured_data'] = structured_data(page, values['url'])
+    values['og_image'] = site + ('og-video.png' if path == 'index.html' else 'og.png')
+    values['og_video'] = og_video(path)
     content = (source / 'pages' / path).read_text().strip().replace('{{breadcrumbs}}', breadcrumbs(page, values['url']))
     values['content'] = fill(content)
     target = output / path
