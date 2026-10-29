@@ -1,3 +1,4 @@
 .vercel
 dist
 README.md
+.env*
