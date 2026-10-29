@@ -12,15 +12,15 @@ export const RemotionRoot = () => (
     height={630}
     defaultProps={
       {
-        name: 'Fuel Gauge',
-        icon: 'icon.svg',
-        headline: "Know if you'll make it",
-        headlineAccent: 'to reset.',
-        sub: 'Free for macOS · fuelgauge.app',
-        accent: '#e8670c',
-        accentInk: '#b84c06',
-        accentFill: '#f2761c',
-        field: ['#ffc98a', '#ffe3a3', '#c9e6ff', '#ffd3c4'],
+        name: 'Coat Check',
+        icon: 'favicon.svg',
+        headline: 'The notch hides your menu bar icons.',
+        headlineAccent: 'Coat Check hands them back.',
+        sub: 'Free for macOS · coatcheckformac.com',
+        accent: '#c22f37',
+        accentInk: '#9e2129',
+        accentFill: '#c8323a',
+        field: ['#f3d6cc', '#f6e6cf', '#dfe4ee', '#f0d3c9'],
       } satisfies OgVideoProps
     }
   />
