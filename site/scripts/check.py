@@ -33,9 +33,7 @@ for file in root.rglob('*.html'):
     page = Page()
     page.feed(file.read_text())
     pages[file] = page
-    analytics = [script for script in page.scripts if script.get('src') == 'https://cdn.usefathom.com/script.js']
-    assert len(analytics) == 1, f'Expected one Fathom embed: {file}'
-    assert analytics[0].get('data-site') == 'OFCLTICU' and 'defer' in analytics[0], f'Invalid Fathom embed: {file}'
+    assert not any('usefathom.com' in script.get('src', '') for script in page.scripts), f'Fathom embed still present: {file}'
     loader = [script for script in page.scripts if script.get('src') == 'https://tracerkit.com/t.js']
     assert len(loader) == 1, f'Expected one TracerKit loader: {file}'
     assert loader[0].get('data-key') == 'tk_4ywfCRdH98-aEeEu' and 'async' in loader[0], f'Invalid TracerKit loader: {file}'
