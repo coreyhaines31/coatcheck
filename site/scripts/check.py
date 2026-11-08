@@ -33,9 +33,10 @@ for file in root.rglob('*.html'):
     page = Page()
     page.feed(file.read_text())
     pages[file] = page
-    analytics = [script for script in page.scripts if script.get('src') == 'https://cdn.usefathom.com/script.js']
-    assert len(analytics) == 1, f'Expected one Fathom embed: {file}'
-    assert analytics[0].get('data-site') == 'OFCLTICU' and 'defer' in analytics[0], f'Invalid Fathom embed: {file}'
+    assert not any('usefathom.com' in script.get('src', '') for script in page.scripts), f'Fathom embed still present: {file}'
+    loader = [script for script in page.scripts if script.get('src') == 'https://tracerkit.com/t.js']
+    assert len(loader) == 1, f'Expected one TracerKit loader: {file}'
+    assert loader[0].get('data-key') == 'tk_4ywfCRdH98-aEeEu' and 'async' in loader[0], f'Invalid TracerKit loader: {file}'
     assert len(page.ids) == len(set(page.ids)), f'Duplicate IDs: {file}'
     assert page.headings.count('h1') == 1, f'Exactly one main heading required: {file}'
     assert page.headings.count('h2') >= (7 if file == root / 'index.html' else 2), f'Missing sections: {file}'
