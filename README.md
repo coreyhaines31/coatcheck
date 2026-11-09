@@ -21,6 +21,8 @@ brew install coreyhaines31/tap/coatcheck
 
 Needs an Apple silicon Mac. Tested on macOS 14 Sonoma through 26 Tahoe; macOS 27 support is being tested in [#24](https://github.com/coreyhaines31/coatcheck/issues/24). Coat Check updates itself.
 
+> **Known issue on macOS 27.2:** Coat Check can't identify or open hidden menu bar icons. macOS 27.2 reports every icon as Apple's MenuBarAgent instead of the app that owns it, so Coat Check can't tell which app an icon belongs to. macOS 27.0.1 works. A fix is in progress in [#24](https://github.com/coreyhaines31/coatcheck/issues/24).
+
 ## How to use it
 
 Coat Check adds a hanger to the right end of your menu bar. Click it:
