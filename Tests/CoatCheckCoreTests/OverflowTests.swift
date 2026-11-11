@@ -76,4 +76,24 @@ final class OverflowTests: XCTestCase {
     func testAlphabeticalKeepsMenuBarOrderForSameName() {
         XCTAssertEqual(Overflow.alphabetical(["Wi‑Fi", "Battery", "Battery"]), [1, 2, 0])
     }
+
+    // macOS 27.2: `coatcheck list` showed seven icons, all owned by MenuBarAgent with empty labels (#24).
+    func testIconsWithAHiddenOwnerAreNumberedLeftToRight() {
+        let host = Overflow.hostBundleIdentifier
+        let names = Overflow.hostedNames(bundleIdentifiers: [host, "com.spareformac.Spare", host, nil, host])
+        XCTAssertEqual(names, ["Icon 1", nil, "Icon 2", nil, "Icon 3"])
+    }
+
+    func testNumberedIconsCanBeOpenedByName() {
+        let names = Overflow.hostedNames(bundleIdentifiers: Array(repeating: Overflow.hostBundleIdentifier, count: 12))
+        let items = names.map { (app: $0 ?? "", label: "") }
+        XCTAssertEqual(Overflow.match("icon 3", in: items), 2)
+        XCTAssertEqual(Overflow.match("Icon 12", in: items), 11)
+        // "Icon 1" is exact for the first icon even though "Icon 10" and "Icon 11" share its start.
+        XCTAssertEqual(Overflow.match("icon 1", in: items), 0)
+    }
+
+    func testOwnersMacOSStillReportsAreNotRenamed() {
+        XCTAssertEqual(Overflow.hostedNames(bundleIdentifiers: ["com.apple.controlcenter", nil]), [nil, nil])
+    }
 }

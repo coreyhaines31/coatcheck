@@ -9,15 +9,17 @@ struct MenuBarItem {
     /// In Accessibility coordinates: origin at the top left of the main screen.
     let frame: CGRect
     let label: String
+    /// Set when macOS hides which app owns the icon (27.2 and later): "Icon 1", "Icon 2"…
+    var hostedName: String?
 
-    var appName: String { app.localizedName ?? app.bundleIdentifier ?? "Unknown app" }
+    var appName: String { hostedName ?? app.localizedName ?? app.bundleIdentifier ?? "Unknown app" }
 
     /// False when macOS had no room to show it.
     let isVisible: Bool
 
     var summary: Command.Item {
         Command.Item(app: appName, bundleIdentifier: app.bundleIdentifier, label: label, visible: isVisible,
-                     x: frame.minX, width: frame.width)
+                     x: frame.minX, width: frame.width, ownerUnknown: hostedName == nil ? nil : true)
     }
 
     /// Opens the icon's menu or panel, as a click would.
@@ -41,11 +43,22 @@ enum MenuBarItems {
     static func all() -> [MenuBarItem] {
         let me = ProcessInfo.processInfo.processIdentifier
         let clear = clearArea()
-        return NSWorkspace.shared.runningApplications
+        var all = NSWorkspace.shared.runningApplications
             .filter { ($0.processIdentifier != me && $0.activationPolicy != .prohibited) || isSystemOwner($0) }
             .flatMap { items(of: $0, clear: clear) }
             .sorted { $0.frame.minX < $1.frame.minX }
+        for (index, name) in Overflow.hostedNames(bundleIdentifiers: all.map(\.app.bundleIdentifier)).enumerated() {
+            all[index].hostedName = name
+        }
+        return all
     }
+
+    /// Whether macOS hides which app owns some icons, as macOS 27.2 does.
+    static func hidesOwners(_ items: [MenuBarItem]) -> Bool { items.contains { $0.hostedName != nil } }
+
+    static let ownersHiddenNote = "macOS 27.2 doesn’t say which app owns each menu bar icon, "
+        + "so Coat Check numbers them left to right (Icon 1 is the leftmost)."
+    static let ownersHiddenURL = URL(string: "https://github.com/coreyhaines31/coatcheck/issues/24")
 
     /// macOS's own icons (Wi-Fi, battery, clock) live in background processes.
     private static func isSystemOwner(_ app: NSRunningApplication) -> Bool {
