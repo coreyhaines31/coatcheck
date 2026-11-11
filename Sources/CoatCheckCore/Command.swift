@@ -41,14 +41,18 @@ public enum Command {
         public var visible: Bool
         public var x: Double
         public var width: Double
+        /// True when macOS (27.2 and later) doesn't say which app owns the icon, so `app` is a placeholder name.
+        public var ownerUnknown: Bool?
 
-        public init(app: String, bundleIdentifier: String?, label: String, visible: Bool, x: Double, width: Double) {
+        public init(app: String, bundleIdentifier: String?, label: String, visible: Bool, x: Double, width: Double,
+                    ownerUnknown: Bool? = nil) {
             self.app = app
             self.bundleIdentifier = bundleIdentifier
             self.label = label
             self.visible = visible
             self.x = x
             self.width = width
+            self.ownerUnknown = ownerUnknown
         }
     }
 
