@@ -117,6 +117,13 @@ final class MenuBarController: NSObject {
             let order = Overflow.alphabetical(listed.map { Overflow.displayName(app: $0.appName, label: $0.label).name })
             let hidden = order.filter { !listed[$0].isVisible }
             let shown = order.filter { listed[$0].isVisible }
+            if MenuBarItems.hidesOwners(listed) {
+                menu.addItem(.sectionHeader(title: "macOS 27.2 hides which app owns each icon"))
+                let why = menu.addItem(withTitle: "Why Icons Are Numbered…", action: #selector(explainHiddenOwners), keyEquivalent: "")
+                why.target = self
+                why.toolTip = MenuBarItems.ownersHiddenNote
+                menu.addItem(.separator())
+            }
             if hidden.isEmpty {
                 menu.addItem(.sectionHeader(title: "Every icon fits in the menu bar"))
             } else {
@@ -155,7 +162,9 @@ final class MenuBarController: NSObject {
         entry.target = self
         entry.tag = index
         if #available(macOS 14.4, *) { entry.subtitle = name.detail }
-        if let icon = item.app.icon?.copy() as? NSImage {
+        if item.hostedName != nil {
+            entry.image = NSImage(systemSymbolName: "questionmark.square.dashed", accessibilityDescription: "Unknown app")
+        } else if let icon = item.app.icon?.copy() as? NSImage {
             icon.size = NSSize(width: 16, height: 16)
             entry.image = icon
         }
@@ -181,6 +190,17 @@ final class MenuBarController: NSObject {
         if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility") {
             NSWorkspace.shared.open(url)
         }
+    }
+
+    @objc private func explainHiddenOwners() {
+        let alert = NSAlert()
+        alert.messageText = "macOS 27.2 hides which app owns each icon"
+        alert.informativeText = MenuBarItems.ownersHiddenNote
+            + " They're still listed, and choosing one opens it. Names will come back as soon as Coat Check can read them again."
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Follow the Fix…")
+        NSApp.activate(ignoringOtherApps: true)
+        if alert.runModal() == .alertSecondButtonReturn, let url = MenuBarItems.ownersHiddenURL { NSWorkspace.shared.open(url) }
     }
 
     @objc private func menuToggle() { personSetHidden(!isHidden) }

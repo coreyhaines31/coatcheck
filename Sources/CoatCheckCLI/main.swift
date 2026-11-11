@@ -129,6 +129,7 @@ case "list":
             print("\(item.visible ? "  " : "* ")\(name.name)\(name.detail.map { " (\($0))" } ?? "")")
         }
         print("\n* hidden: macOS had no room for it. Open one with `coatcheck click <name>`.")
+        if let note = reply.message { print(note) }
     }
 case "click":
     guard !target.isEmpty else { fail("Name an icon: `coatcheck click <name>`. See them with `coatcheck list`.") }
