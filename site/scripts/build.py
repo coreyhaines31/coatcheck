@@ -1,7 +1,8 @@
-from html import escape
+from html import escape, unescape
 from pathlib import Path
 from string import Template
 import json
+import re
 import shutil
 
 root = Path(__file__).resolve().parent.parent
@@ -71,9 +72,19 @@ def og_video(path):
     ))
 
 
-def structured_data(page, url):
+def faq(content):
+    """FAQPage entries from the page's <details> questions, as plain text."""
+    def text(html):
+        return unescape(re.sub(r'<[^>]+>', '', html)).strip()
+    pairs = re.findall(r'<details><summary>(.*?)</summary><p>(.*?)</p></details>', content, re.S)
+    return {'@type': 'FAQPage', 'mainEntity': [
+        {'@type': 'Question', 'name': text(q), 'acceptedAnswer': {'@type': 'Answer', 'text': text(a)}} for q, a in pairs]}
+
+
+def structured_data(page, url, content):
     if page['path'] == 'index.html':
-        return json.dumps(app, ensure_ascii=False).replace('</', '<\\/')
+        graph = [{key: value for key, value in app.items() if key != '@context'}, faq(content)]
+        return json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False).replace('</', '<\\/')
     graph = [app, {'@type': 'BreadcrumbList', 'itemListElement': [
         {'@type': 'ListItem', 'position': i, 'name': name, 'item': link}
         for i, (name, link) in enumerate(crumbs(page, url), 1)]}]
@@ -101,13 +112,13 @@ for page in pages:
     values = {key: escape(page[key], quote=True) for key in ('title', 'description', 'og_title', 'og_description', 'body_class')}
     values.update(shared)
     values['url'] = site + path.removesuffix('index.html')
-    values['structured_data'] = structured_data(page, values['url'])
     values['og_image'] = site + ('og-video.png' if path == 'index.html' else 'og.png')
     values['og_video'] = og_video(path)
     # Only the homepage mounts the app's popover.
     values['page_css'] = '  <link rel="stylesheet" href="/popover.css">\n' if path == 'index.html' else ''
     content = (source / 'pages' / path).read_text().strip().replace('{{breadcrumbs}}', breadcrumbs(page, values['url']))
     values['content'] = fill(content)
+    values['structured_data'] = structured_data(page, values['url'], values['content'])
     target = output / path
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(layout.substitute(values))
