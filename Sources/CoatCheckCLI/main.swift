@@ -27,7 +27,7 @@ Accessibility permission for Coat Check (System Settings → Privacy & Security)
 unique), or "App: label" when an app has several icons.
 
 Exit codes: 0 success, 1 error or Coat Check isn't running,
-2 hiding refused because the divider sits right of the hanger.
+2 hiding refused because the divider sits right of the Coat Check icon.
 
 More: https://github.com/coreyhaines31/coatcheck#command-line
 """
@@ -102,7 +102,7 @@ func report(_ reply: Command.Reply) {
     default: break
     }
     if !reply.dividerPlaced {
-        print("The divider sits right of the hanger, so icons can't be hidden. Hold ⌘ and drag it left of the hanger.")
+        print("The divider sits right of the Coat Check icon, so icons can't be hidden. Hold ⌘ and drag it left of the Coat Check icon.")
     }
 }
 
