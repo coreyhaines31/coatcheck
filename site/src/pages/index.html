@@ -357,13 +357,28 @@ Opened Disk Forecast.</code></pre>
     <details><summary>How is it different from Bartender, Ice, or Thaw?</summary><p>Those apps rearrange and hide icons, and several draw hidden icons in a second bar. Coat Check does one thing: it lists every icon, including the ones behind the notch, and opens them, without moving anything. <a href="/alternatives/">See how they compare.</a></p></details>
     <details><summary>Does it work without a notch?</summary><p>Yes. On any Mac, icons that collide with a long row of app menus get hidden too. Coat Check lists those the same way.</p></details>
     <details><summary>Does it run on Intel Macs?</summary><p>Not yet. Coat Check needs an Apple silicon Mac with macOS 14 or later.</p></details>
-    <details><summary>Does it work on macOS 27?</summary><p>Coat Check is tested on macOS 14 Sonoma through 26 Tahoe. macOS 27 changed how the menu bar is drawn and added its own arrow for icons that don’t fit, so we’re testing Coat Check on it now. <a href="https://github.com/coreyhaines31/coatcheck/issues/24">Follow along on GitHub.</a></p></details>
+    <details><summary>Does it work on macOS 27?</summary><p>Coat Check is tested on macOS 14 Sonoma through 26 Tahoe. macOS 27 changed how the menu bar is drawn and added its own arrow for icons that don’t fit. 27.0.1 works. macOS 27.2 no longer says which app owns each icon, so Coat Check lists them as Icon 1, Icon 2… from left to right, and they still open. <a href="https://github.com/coreyhaines31/coatcheck/issues/24">Follow along on GitHub.</a></p></details>
+    <details><summary>Can I use it alongside Bartender, Ice or Hidden Bar?</summary><p>Yes. Coat Check doesn’t move or hide anything unless you turn on its divider, so it won’t fight another menu bar manager over your layout. Let the other app arrange and hide icons, and use Coat Check to open any of them from one list.</p></details>
+    <details><summary>What if the Coat Check icon itself gets hidden?</summary><p>Coat Check puts its icon at the right end of the menu bar on first launch, where the notch can’t reach. If you ⌘-drag it somewhere it gets hidden, open Coat Check again from Finder or Spotlight and its settings window appears.</p></details>
     <details><summary>How do I uninstall it?</summary><p>Choose Quit Coat Check from the Coat Check menu and drag the app to the Trash. If you installed it with Homebrew, run <code>brew uninstall --cask coatcheck</code>.</p></details>
     <details><summary>What does it cost?</summary><p>Nothing. Coat Check is free and open source under the MIT license, with no account and no subscription.</p></details>
   </div>
 </section>
 
 {{get_coatcheck}}
+
+<section class="bx-section" id="why">
+  <div class="bx-wrap">
+    <div class="bx-maker">
+      <img src="/corey.jpg" alt="Corey Haines" width="76" height="76">
+      <div>
+        <span class="bx-strip">Why it exists</span>
+        <p>My MacBook's notch hides menu bar icons whenever I have too many apps open, and macOS gives no way to reach them. The menu bar managers I tried were built to hide more icons, not to get the hidden ones back. So I built the app I wanted: one click lists every icon, including the ones behind the notch, and opens them in place. And it's free.</p>
+        <cite>Corey Haines, maker of Coat Check and <a href="#apps">more free Mac apps</a></cite>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="bx-section" id="apps">
   <div class="bx-wrap">
