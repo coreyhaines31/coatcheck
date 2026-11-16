@@ -1,7 +1,7 @@
 import AppKit
 import CoatCheckCore
 
-/// The hanger icon, which opens a menu of every menu bar icon, including the ones macOS had no room for.
+/// The bellows icon, which opens a menu of every menu bar icon, including the ones macOS had no room for.
 /// An optional divider to its left can also hide icons.
 final class MenuBarController: NSObject {
     private let toggle: NSStatusItem
@@ -23,7 +23,7 @@ final class MenuBarController: NSObject {
         toggle.autosaveName = StatusItemPlacement.iconName
         super.init()
         if let button = toggle.button {
-            button.image = NSImage(systemSymbolName: "hanger", accessibilityDescription: "Coat Check")
+            button.image = BellowsGlyph.folded
             button.target = self
             button.action = #selector(toggleClicked)
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -31,6 +31,11 @@ final class MenuBarController: NSObject {
             button.toolTip = "Coat Check: open any menu bar icon, even ones hidden by the notch"
         }
         setDividerEnabled(preferences.useDivider)
+    }
+
+    /// Opened out while the icons left of the divider show; folded while they're hidden or there's no divider.
+    private func updateGlyph() {
+        toggle.button?.image = divider != nil && !isHidden ? BellowsGlyph.open : BellowsGlyph.folded
     }
 
     // MARK: Divider
@@ -51,6 +56,7 @@ final class MenuBarController: NSObject {
             divider = nil
             isHidden = false
         }
+        updateGlyph()
     }
 
     /// Hides or returns the icons left of the divider. `byPerson` reveals start the auto-hide countdown.
@@ -81,6 +87,7 @@ final class MenuBarController: NSObject {
             if byPerson { scheduleAutoHide() }
         }
         isHidden = hidden
+        updateGlyph()
         return true
     }
 
