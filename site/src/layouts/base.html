@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#f7f2eb">
+  <meta name="theme-color" content="#e2e3e2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
   <title>$title</title>
   <meta name="description" content="$description">
   <meta property="og:title" content="$og_title">
@@ -18,16 +19,21 @@
   <meta property="og:image:alt" content="Coat Check: the notch hides your menu bar icons. Coat Check hands them back.">
 $og_video  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="$url">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@300;600;700&display=swap">
+  <link rel="stylesheet" href="/brushed.css">
+$page_css  <link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">$structured_data</script>
   <script async src="https://tracerkit.com/t.js" data-key="tk_4ywfCRdH98-aEeEu"></script>
   <script src="https://ingest.getuserproof.com/sdk.js" data-site="572c4ed4-49c7-464d-8c8a-c6893a87e070" defer></script>
 </head>
-<body class="$body_class">
+<body class="bx $body_class">
   <a class="skip" href="#main">Skip to content</a>
-  <svg class="svg-defs" aria-hidden="true"><defs><symbol id="hanger" viewBox="0 0 32 32"><path d="M13 9.4a3 3 0 1 1 4.4 2.6c-.9.5-1.4 1.1-1.4 2v.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M16 14.6 4.7 22.4c-1.1.8-.6 2.5.8 2.5h21c1.4 0 1.9-1.7.8-2.5L16 14.6Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol></defs></svg>
 $header
 <main id="main">
 $content

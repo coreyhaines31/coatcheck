@@ -104,6 +104,8 @@ for page in pages:
     values['structured_data'] = structured_data(page, values['url'])
     values['og_image'] = site + ('og-video.png' if path == 'index.html' else 'og.png')
     values['og_video'] = og_video(path)
+    # Only the homepage mounts the app's popover.
+    values['page_css'] = '  <link rel="stylesheet" href="/popover.css">\n' if path == 'index.html' else ''
     content = (source / 'pages' / path).read_text().strip().replace('{{breadcrumbs}}', breadcrumbs(page, values['url']))
     values['content'] = fill(content)
     target = output / path

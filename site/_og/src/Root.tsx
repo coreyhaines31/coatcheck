@@ -13,14 +13,11 @@ export const RemotionRoot = () => (
     defaultProps={
       {
         name: 'Coat Check',
-        icon: 'favicon.svg',
+        icon: 'family/coat.png',
         headline: 'The notch hides your menu bar icons.',
         headlineAccent: 'Coat Check hands them back.',
         sub: 'Free for macOS · coatcheckformac.com',
-        accent: '#c22f37',
-        accentInk: '#9e2129',
-        accentFill: '#c8323a',
-        field: ['#f3d6cc', '#f6e6cf', '#dfe4ee', '#f0d3c9'],
+        accent: '#c4366f',
       } satisfies OgVideoProps
     }
   />
