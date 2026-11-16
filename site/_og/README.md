@@ -6,6 +6,6 @@ Remotion source for `src/assets/og.mp4` (the homepage `og:video` that iMessage a
 cd site/_og && npm install && npm run render
 ```
 
-`npm run studio` opens a live preview. `OgVideo.tsx` is the shared Mac app site shell (color field, glass card, brand, headline) in its wide arrangement, and takes its text and colors as props in `Root.tsx`; `MenuBarScene.tsx` is the Coat Check animation below the headline. The loop ends on its first frame, so keep the first and last frames identical when changing the timing.
+`npm run studio` opens a live preview. `OgVideo.tsx` is the Brushed Mac app site shell (brushed aluminium, nameplate with the pilot light, Barlow headline) in its wide arrangement, and takes its text and colors as props in `Root.tsx`; `MenuBarScene.tsx` is the Coat Check animation below the headline. The loop ends on its first frame, so keep the first and last frames identical when changing the timing.
 
 This folder is in `.vercelignore`, so none of it is deployed.
