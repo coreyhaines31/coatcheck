@@ -2,6 +2,7 @@ import AppKit
 import Combine
 import SwiftUI
 import CoatCheckCore
+import PanelKit
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let preferences = Preferences()
@@ -16,6 +17,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        PanelFont.register()
         let menuBar = MenuBarController(preferences: preferences)
         menuBar.onOpenSettings = { [weak self] in self?.showSettings() }
         menuBar.onCheckForUpdates = { [weak self] in self?.checkForUpdates() }
@@ -65,7 +67,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             case .status: break
             case .list:
                 if !MenuBarItems.isTrusted { MenuBarItems.requestAccess() }
-                items = MenuBarItems.all().map(\.summary)
+                let all = MenuBarItems.all()
+                items = all.map(\.summary)
+                if MenuBarItems.hidesOwners(all) { message = MenuBarItems.ownersHiddenNote }
             case .click: message = click(request.target)
             }
         }
@@ -78,7 +82,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func click(_ target: String) -> String {
         let all = MenuBarItems.all()
         guard let index = Overflow.match(target, in: all.map { ($0.appName, $0.label) }) else {
-            return "No single menu bar icon matches “\(target)”. Run `coatcheck list` to see them."
+            let hint = MenuBarItems.hidesOwners(all) ? " " + MenuBarItems.ownersHiddenNote + " Try `coatcheck click icon 1`." : ""
+            return "No single menu bar icon matches “\(target)”. Run `coatcheck list` to see them.\(hint)"
         }
         let item = all[index]
         return item.press() ? "Opened \(item.appName)." : "\(item.appName) didn’t respond to the click."

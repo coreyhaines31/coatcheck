@@ -1,9 +1,14 @@
 import type {ReactNode} from 'react';
 import {Easing, interpolate, interpolateColors, useCurrentFrame, useVideoConfig} from 'remotion';
-import {INK, INK_2} from './OgVideo';
+import {DISPLAY} from './OgVideo';
 
-// A crowded MacBook menu bar: eight icons are jammed behind the notch. The hanger opens Coat Check's drawer and each
-// hidden icon glides into a numbered ticket and the payoff lands. Then the tickets fade, the drawer folds and the icons
+// Menu bar ink on the dark bar, and the drawer's ink (the light Brushed menu).
+const BAR_INK = '#e6e7e8';
+const INK = '#161616';
+const INK_2 = '#5b5d5e';
+
+// A crowded MacBook menu bar on a black mount: eight icons are jammed behind the notch. The bellows glyph opens Coat Check's
+// drawer and each hidden icon glides into a numbered cream tag and the payoff lands. Then the tickets fade, the drawer folds and the icons
 // fade back in behind the notch, so the loop has no seam.
 const STANDARD = Easing.bezier(0.4, 0, 0.2, 1);
 const IN_OUT = Easing.bezier(0.65, 0, 0.35, 1);
@@ -31,12 +36,20 @@ const paths: Record<string, ReactNode> = {
   timer: <><circle cx="12" cy="13" r="8" /><path d="M12 13V9M10 2h4" /></>,
   mic: <><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></>,
   wifi: <><path d="M2 9a15 15 0 0 1 20 0" /><path d="M5.5 12.5a10 10 0 0 1 13 0" /><path d="M9 16a5 5 0 0 1 6 0" /><circle cx="12" cy="19.5" r="1" /></>,
-  hanger: <><path d="M10 6.8a2.3 2.3 0 1 1 3.4 2c-.7.4-1.4.9-1.4 1.8v.6" /><path d="M12 11.2 3.7 17c-.8.6-.4 1.8.6 1.8h15.4c1 0 1.4-1.2.6-1.8L12 11.2z" /></>,
 };
 
 const Glyph = ({name, size, color}: {name: string; size: number; color: string}) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" style={{display: 'block'}}>
     {paths[name]}
+  </svg>
+);
+
+// Coat Check's menu bar glyph: bellows between two end plates.
+const Bellows = ({size, color}: {size: number; color: string}) => (
+  <svg width={size} height={size} viewBox="0 0 18 18" style={{display: 'block'}}>
+    <rect fill={color} x="3.8" y="2.5" width="2.1" height="13" rx=".8" />
+    <rect fill={color} x="12.1" y="2.5" width="2.1" height="13" rx=".8" />
+    <path fill={color} d="M6.2 4.2L7.6 7.4L9 4.2L10.4 7.4L11.8 4.2L11.8 13.8L10.4 10.6L9 13.8L7.6 10.6L6.2 13.8Z" />
   </svg>
 );
 
@@ -55,7 +68,7 @@ const TICKET_PATH = (() => {
     + ` A${r - 0.75} ${r - 0.75} 0 0 1 ${r} 0.75 Z`;
 })();
 
-export const MenuBarScene = ({accentInk, accentFill}: {accentInk: string; accentFill: string}) => {
+export const MenuBarScene = ({accent}: {accent: string}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const t = frame / fps;
@@ -87,45 +100,47 @@ export const MenuBarScene = ({accentInk, accentFill}: {accentInk: string; accent
 
   return (
     <div
-      style={{position: 'relative', width: W, height: '100%', borderRadius: 24, overflow: 'hidden',
-        background: 'linear-gradient(165deg, #f4e9e1 0%, #efe3df 45%, #e4e6ee 100%)',
-        boxShadow: '0 0 0 1px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.05), 0 16px 36px rgba(55,30,15,0.12)'}}
+      style={{position: 'relative', width: W, height: '100%', borderRadius: 14, overflow: 'hidden',
+        background: '#1b1b1b', backgroundImage: 'radial-gradient(rgba(255,255,255,.045) 1px, transparent 1.3px)', backgroundSize: '5px 5px',
+        boxShadow: '0 0 0 1px rgba(0,0,0,0.5)'}}
     >
       <div
-        style={{position: 'absolute', left: 0, right: 0, top: 0, height: BAR, background: 'rgba(255,255,255,0.62)', borderBottom: '1px solid rgba(0,0,0,0.06)',
-          display: 'flex', alignItems: 'center', gap: 18, padding: '0 24px', fontSize: 17, color: INK}}
+        style={{position: 'absolute', left: 0, right: 0, top: 0, height: BAR, background: '#2a2a2c', borderBottom: '1px solid #000',
+          display: 'flex', alignItems: 'center', gap: 18, padding: '0 24px', fontSize: 17, color: BAR_INK}}
       >
         <strong style={{fontWeight: 700}}>Finder</strong>
         {['File', 'Edit', 'View', 'Window'].map((m) => <span key={m}>{m}</span>)}
       </div>
       {VISIBLE.map((name, i) => (
         <div key={name} style={{position: 'absolute', left: 622 + i * 32 - GLYPH / 2, top: BAR / 2 - GLYPH / 2}}>
-          <Glyph name={name} size={GLYPH} color={INK} />
+          <Glyph name={name} size={GLYPH} color={BAR_INK} />
         </div>
       ))}
-      <div style={{position: 'absolute', left: 776, top: BAR / 2 - GLYPH / 2}}><Glyph name="wifi" size={GLYPH} color={INK} /></div>
-      <div style={{position: 'absolute', left: 806, top: 13, width: 26, height: 13, borderRadius: 4, border: `1.8px solid ${INK}`, boxSizing: 'border-box', padding: 1.5}}>
-        <div style={{width: '70%', height: '100%', borderRadius: 1.5, background: INK}} />
+      <div style={{position: 'absolute', left: 776, top: BAR / 2 - GLYPH / 2}}><Glyph name="wifi" size={GLYPH} color={BAR_INK} /></div>
+      <div style={{position: 'absolute', left: 806, top: 13, width: 26, height: 13, borderRadius: 4, border: `1.8px solid ${BAR_INK}`, boxSizing: 'border-box', padding: 1.5}}>
+        <div style={{width: '70%', height: '100%', borderRadius: 1.5, background: BAR_INK}} />
       </div>
-      <div style={{position: 'absolute', left: 844, top: 4, width: 32, height: 32, borderRadius: 7, background: `rgba(0,0,0,${0.1 * lit})`}} />
-      <div style={{position: 'absolute', left: 849, top: 9}}><Glyph name="hanger" size={22} color={INK} /></div>
-      <div style={{position: 'absolute', right: 22, top: 0, height: BAR, display: 'flex', alignItems: 'center', fontSize: 17, color: INK}}>Fri 9:41 AM</div>
-      <div style={{position: 'absolute', left: NOTCH.left, top: 0, width: NOTCH.width, height: 36, background: '#0b0b0c', borderRadius: '0 0 16px 16px'}} />
+      <div style={{position: 'absolute', left: 844, top: 4, width: 32, height: 32, borderRadius: 7, background: `rgba(255,255,255,${0.18 * lit})`}} />
+      <div style={{position: 'absolute', left: 849, top: 9}}><Bellows size={22} color={BAR_INK} /></div>
+      <div style={{position: 'absolute', right: 22, top: 0, height: BAR, display: 'flex', alignItems: 'center', fontSize: 17, color: BAR_INK}}>Fri 9:41 AM</div>
+      <div style={{position: 'absolute', left: NOTCH.left, top: 0, width: NOTCH.width, height: 36, background: '#000', borderRadius: '0 0 16px 16px'}} />
 
       <div style={{position: 'absolute', left: 32, top: 78}}>
         <div style={{position: 'absolute', opacity: waiting, whiteSpace: 'nowrap'}}>
-          <div style={{fontSize: 44, fontWeight: 700, letterSpacing: '-0.035em', color: '#8e8e93'}}>8 icons hidden</div>
-          <div style={{fontSize: 22, color: INK_2, marginTop: 6}}>behind the notch</div>
+          <div style={{fontFamily: DISPLAY, fontSize: 50, fontWeight: 600, color: '#8f9192'}}>8 icons hidden</div>
+          <div style={{fontSize: 22, color: '#a9abad', marginTop: 4}}>behind the notch</div>
         </div>
         <div style={{position: 'absolute', opacity: shown, transform: `translateY(${(1 - verdictIn) * 8}px)`, whiteSpace: 'nowrap'}}>
-          <div style={{fontSize: 44, fontWeight: 700, letterSpacing: '-0.035em', color: accentInk}}>8 icons checked</div>
-          <div style={{fontSize: 22, color: INK_2, marginTop: 6}}>Each one a click away</div>
+          <div style={{display: 'flex', alignItems: 'center', gap: 14, fontFamily: DISPLAY, fontSize: 50, fontWeight: 600, color: '#f0f0f0'}}>
+            <span style={{width: 12, height: 12, borderRadius: '50%', background: accent, boxShadow: `0 0 8px ${accent}`}} />8 icons checked
+          </div>
+          <div style={{fontSize: 22, color: '#a9abad', marginTop: 4}}>Each one a click away</div>
         </div>
       </div>
 
       <div
         style={{position: 'absolute', left: DRAWER.left, top: DRAWER.top, width: W - DRAWER.left - 12, height: 160, boxSizing: 'border-box', padding: DRAWER.pad, borderRadius: 16,
-          background: 'rgba(252,251,250,0.94)', boxShadow: '0 0 0 1px rgba(0,0,0,0.07), 0 10px 28px rgba(55,30,15,0.14)',
+          background: 'rgba(236,236,235,0.97)', boxShadow: '0 0 0 1px rgba(0,0,0,0.35), 0 18px 40px rgba(0,0,0,0.32)',
           opacity: open, transform: `translateY(${(1 - open) * -10}px)`, transformOrigin: 'top right'}}
       >
         <div style={{fontSize: 15, fontWeight: 600, color: INK_2, lineHeight: '18px'}}>No room in the menu bar</div>
@@ -138,14 +153,14 @@ export const MenuBarScene = ({accentInk, accentFill}: {accentInk: string; accent
           <svg width={TICKET.w} height={TICKET.h} style={{position: 'absolute', inset: 0, overflow: 'visible'}}>
             <path
               d={TICKET_PATH}
-              fill={interpolateColors(landed, [0, 1], ['rgba(251,243,234,0)', '#fbf3ea'])}
-              stroke={interpolateColors(landed, [0, 1], ['rgba(0,0,0,0.10)', 'rgba(158,33,41,0.34)'])}
+              fill={interpolateColors(landed, [0, 1], ['rgba(244,242,235,0)', '#f4f2eb'])}
+              stroke={interpolateColors(landed, [0, 1], ['rgba(0,0,0,0.10)', 'rgba(22,22,22,0.45)'])}
               strokeWidth={1.5}
             />
           </svg>
-          <div style={{position: 'absolute', left: 10, right: 10, top: PERF - 0.75, borderTop: `1.5px dashed rgba(158,33,41,${0.35 * landed})`}} />
+          <div style={{position: 'absolute', left: 10, right: 10, top: PERF - 0.75, borderTop: `1.5px dashed rgba(22,22,22,${0.35 * landed})`}} />
           <div
-            style={{position: 'absolute', left: 0, right: 0, bottom: 7, textAlign: 'center', fontSize: 15, fontWeight: 700, color: accentFill,
+            style={{position: 'absolute', left: 0, right: 0, bottom: 7, textAlign: 'center', fontFamily: DISPLAY, fontSize: 17, fontWeight: 600, color: INK,
               fontVariantNumeric: 'tabular-nums', opacity: landed, transform: `translateY(${(1 - landed) * 5}px)`}}
           >
             No.{i + 1}

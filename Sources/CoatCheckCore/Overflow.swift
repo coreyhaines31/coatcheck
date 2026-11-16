@@ -38,6 +38,21 @@ public enum Overflow {
         return (app, rest.isEmpty || rest == app ? nil : rest)
     }
 
+    /// macOS 27.2 hosts every menu bar icon in this one system process, so Accessibility no longer says
+    /// which app owns an icon, and the icons carry no label.
+    public static let hostBundleIdentifier = "com.apple.MenuBarAgent"
+
+    /// Names for icons whose owner is hidden: "Icon 1", "Icon 2"… left to right, so each one can still be
+    /// told apart and opened. Icons with a known owner get nil. `bundleIdentifiers` is in menu bar order.
+    public static func hostedNames(bundleIdentifiers: [String?]) -> [String?] {
+        var number = 0
+        return bundleIdentifiers.map { identifier in
+            guard identifier == hostBundleIdentifier else { return nil }
+            number += 1
+            return "Icon \(number)"
+        }
+    }
+
     /// The order to list icons in: by name, the way Finder sorts, so "Green Room" sits among the G's.
     /// Icons with the same name keep their menu bar order.
     public static func alphabetical(_ names: [String]) -> [Int] {

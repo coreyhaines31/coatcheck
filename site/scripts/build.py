@@ -8,7 +8,7 @@ root = Path(__file__).resolve().parent.parent
 source = root / 'src'
 output = root / 'dist'
 layout = Template((source / 'layouts/base.html').read_text())
-release = '0.1.2'
+release = '0.2.0'
 download_url = f'https://github.com/coreyhaines31/coatcheck/releases/download/v{release}/CoatCheck-{release}-arm64.dmg'
 partials = {name: (source / f'layouts/{name}.html').read_text().strip() for name in ('header', 'footer', 'get-coatcheck')}
 
@@ -104,6 +104,8 @@ for page in pages:
     values['structured_data'] = structured_data(page, values['url'])
     values['og_image'] = site + ('og-video.png' if path == 'index.html' else 'og.png')
     values['og_video'] = og_video(path)
+    # Only the homepage mounts the app's popover.
+    values['page_css'] = '  <link rel="stylesheet" href="/popover.css">\n' if path == 'index.html' else ''
     content = (source / 'pages' / path).read_text().strip().replace('{{breadcrumbs}}', breadcrumbs(page, values['url']))
     values['content'] = fill(content)
     target = output / path
