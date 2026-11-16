@@ -17,7 +17,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
-        PanelKit.registerFonts()
+        PanelFont.register()
         let menuBar = MenuBarController(preferences: preferences)
         menuBar.onOpenSettings = { [weak self] in self?.showSettings() }
         menuBar.onCheckForUpdates = { [weak self] in self?.checkForUpdates() }
