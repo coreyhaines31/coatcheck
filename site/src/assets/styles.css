@@ -289,3 +289,76 @@ kbd {padding: 1px 6px; border-radius: 4px; background: var(--bx-field); box-shad
 @media (prefers-reduced-motion: reduce) {
   .hub-grid a {transition: none}
 }
+
+/* Longform homepage */
+.hero-story {margin-top: 20px; font: 600 19px/1.35 var(--bx-display); color: var(--bx-ink)}
+.hero-story + .bx-lede {margin-top: 10px}
+.problem-quote {font: 500 22px/1.3 var(--bx-display); color: var(--bx-ink) !important; margin-bottom: 14px}
+.feature-copy p + p {margin-top: 12px}
+.feature-copy strong {color: var(--bx-ink); font-weight: 600}
+.gauge-panel {display: grid; place-items: center; padding: 32px 20px}
+.list-panel, .settings-panel {display: grid; place-items: center; padding: 32px 24px}
+.list-menu {display: grid; width: min(100%, 16rem); padding: 5px; border-radius: 10px; font-size: 13px}
+.list-menu hr {width: calc(100% - 20px); margin: 5px 10px; border: 0; border-top: 1px solid rgba(0,0,0,.12)}
+.list-head {padding: 6px 10px 3px; font-size: 11px; font-weight: 600; color: rgba(0,0,0,.5)}
+.list-menu .mini-row > span {display: grid; line-height: 1.2}
+.list-menu small {font-size: 11px; opacity: .6}
+.list-menu .is-hover small {opacity: .85}
+.dot {flex: none; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 4px; color: #fff; font: 700 9px/1 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-style: normal}
+.settings-mock {width: min(100%, 23rem); padding: 14px; border-radius: 12px; font-size: 13px}
+.settings-title {margin-bottom: 10px; text-align: center; font-weight: 600; font-size: 13px}
+.settings-group {display: grid; margin-top: 8px; border-radius: 8px; background: rgba(255,255,255,.7); box-shadow: 0 0 0 .5px rgba(0,0,0,.15)}
+.settings-row {display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; line-height: 1.3}
+.settings-row + .settings-row {border-top: 1px solid rgba(0,0,0,.08)}
+.settings-row span {display: grid; gap: 2px}
+.settings-row small {font-size: 11px; color: rgba(0,0,0,.5)}
+.settings-row em {flex: none; font-style: normal; font-size: 12px; color: rgba(0,0,0,.7)}
+.settings-row em.btn {padding: 2px 9px; border-radius: 5px; background: #fff; box-shadow: 0 0 0 .5px rgba(0,0,0,.25), 0 1px 1px rgba(0,0,0,.08)}
+.switch {flex: none; position: relative; width: 30px; height: 18px; border-radius: 9px; background: rgba(0,0,0,.15)}
+.switch::after {content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.3)}
+.switch.on {background: #2f63d3}
+.switch.on::after {left: 14px}
+.uses .bx-grid {grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr))}
+.uses code, .cli-table code {font-size: .85em; overflow-wrap: anywhere}
+.cli-copy p + p {margin-top: 12px}
+.cli-terminals {display: grid; gap: 14px; min-width: 0}
+.cli-table {width: 100%; border-collapse: collapse; font-size: 14.5px; border-radius: 10px; overflow: hidden; background: var(--bx-card); box-shadow: 0 0 0 1px var(--bx-rule)}
+.cli-table th, .cli-table td {padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--bx-rule)}
+.cli-table tr:last-child > * {border-bottom: 0}
+.cli-table th {white-space: nowrap; font-weight: 600}
+.cli-table td {color: var(--bx-ink2)}
+@media (max-width: 480px) {.cli-table th {white-space: normal}}
+.compare-wrap {margin-top: 30px}
+.compare-wrap table {min-width: 52rem; font-size: 14.5px}
+.compare-wrap tbody th {font-weight: 600; width: 13rem}
+.compare-wrap td {color: var(--bx-ink2)}
+.compare-wrap td.us {color: var(--bx-ink); font-weight: 500}
+.compare-wrap thead a, .compare-notes a, .compare-sources a {text-decoration: underline; text-decoration-color: var(--bx-muted); text-underline-offset: .2em}
+.compare-sources {margin-top: 22px; max-width: 70ch}
+.privacy-side {margin-top: 18px; font-size: 15.5px; color: #a9abad}
+.privacy-side strong {color: #e9eaea; font-weight: 600}
+.privacy-copy h3 {margin: 26px 0 0; font: 600 13px/1.2 var(--bx-display); letter-spacing: .16em; text-transform: uppercase; color: #e9eaea}
+.privacy-copy h3 + ul {margin-top: 12px}
+.privacy-copy .never li::before {background: #8f9192; box-shadow: none}
+.privacy-copy .fine {margin-top: 22px; color: #8f9192}
+.free-grid, .specs-grid {display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 5rem); align-items: start}
+.free .bx-intro + .bx-intro {margin-top: 12px}
+.free-cards {margin-top: 0; grid-template-columns: minmax(0, 1fr)}
+.free code, .specs code {font-size: .85em; overflow-wrap: anywhere}
+.news ul {display: grid; gap: 10px; margin: 20px 0 14px; padding-left: 20px; color: var(--bx-ink2)}
+.news li {line-height: 1.55}
+.news .fine a {text-decoration: underline; text-decoration-color: var(--bx-muted); text-underline-offset: .2em}
+.spec-list {display: grid; margin: 0; border-radius: 10px; background: var(--bx-card); border: 1px solid var(--bx-rule)}
+.spec-list div {display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; padding: 14px 18px}
+.spec-list div + div {border-top: 1px solid var(--bx-rule)}
+.spec-list dt {font: 600 12px/1.6 var(--bx-display); letter-spacing: .16em; text-transform: uppercase; color: var(--bx-muted)}
+.spec-list dd {margin: 0; color: var(--bx-ink2); line-height: 1.5}
+@media (max-width: 62rem) {.free-grid, .specs-grid {grid-template-columns: minmax(0, 1fr)}}
+@media (max-width: 420px) {.spec-list div {grid-template-columns: minmax(0, 1fr); gap: 4px}}
+.privacy-copy > p.fine {font-size: 14px}
+.news h3 {margin-top: 26px; font-size: 21px; font-weight: 600}
+.news h3 + ul {margin-top: 12px}
+@media (max-width: 640px) {
+  .compare-wrap table {min-width: 46rem}
+  .compare-wrap tbody th {width: 8.5rem}
+}
