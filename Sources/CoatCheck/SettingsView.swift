@@ -22,7 +22,7 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Every menu bar icon, within reach").font(.headline)
                         Text("When the notch or a crowded menu bar leaves no room, macOS quietly hides icons. "
-                             + "Click the hanger to see every one and open any of them.")
+                             + "Click the Coat Check icon to see every one and open any of them.")
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -51,7 +51,7 @@ struct SettingsView: View {
             Section {
                 Toggle(isOn: $preferences.useDivider) {
                     Text("Hide icons with a divider")
-                    Text("Adds a │ divider left of the hanger. Icons to its left can be hidden to clear space. "
+                    Text("Adds a │ divider left of the Coat Check icon. Icons to its left can be hidden to clear space. "
                          + "Hold ⌘ and drag icons across it.")
                 }
                 if preferences.useDivider {

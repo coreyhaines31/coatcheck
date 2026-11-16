@@ -239,9 +239,9 @@ final class MenuBarController: NSObject {
 
     private func explainDividerPlacement() {
         let alert = NSAlert()
-        alert.messageText = "Move the divider left of the hanger"
+        alert.messageText = "Move the divider left of the Coat Check icon"
         alert.informativeText = "Coat Check hides the icons to the left of its divider (│). "
-            + "Hold ⌘ and drag the divider so it sits just left of the hanger, then try again."
+            + "Hold ⌘ and drag the divider so it sits just left of the Coat Check icon, then try again."
         NSApp.activate(ignoringOtherApps: true)
         alert.runModal()
     }

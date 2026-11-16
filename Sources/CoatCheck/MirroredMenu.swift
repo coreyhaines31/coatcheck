@@ -1,7 +1,7 @@
 import AppKit
 import ApplicationServices
 
-/// Rebuilds another app's menu inside Coat Check's, so a hidden icon's menu opens under the hanger.
+/// Rebuilds another app's menu inside Coat Check's, so a hidden icon's menu opens under the Coat Check icon.
 /// Choosing an item presses the real one through Accessibility.
 final class MirroredMenu: NSObject, NSMenuDelegate {
     private let source: AXUIElement
