@@ -7,8 +7,8 @@ let package = Package(
     products: [.executable(name: "CoatCheck", targets: ["CoatCheck"]), .executable(name: "CoatCheckCLI", targets: ["CoatCheckCLI"])],
     dependencies: [
         .package(url: "https://github.com/sparkle-project/Sparkle", exact: "2.10.0"),
-        // Brushed popover components. On the development branch until PanelKit 0.2.0 is tagged.
-        .package(url: "https://github.com/coreyhaines31/panelkit", branch: "development")
+        // Brushed popover components.
+        .package(url: "https://github.com/coreyhaines31/panelkit", from: "0.2.0")
     ],
     targets: [
         .target(name: "CoatCheckCore"),
