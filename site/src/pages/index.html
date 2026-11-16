@@ -234,6 +234,47 @@
 
 <span class="prompt">$</span> coatcheck click "disk forecast"
 Opened Disk Forecast.</code></pre>
+  <table class="cli-table">
+    <caption class="visually-hidden">coatcheck commands</caption>
+    <tbody>
+      <tr><th scope="row"><code>list</code></th><td>Every menu bar icon, with the ones macOS had no room for marked hidden</td></tr>
+      <tr><th scope="row"><code>click &lt;name&gt;</code></th><td>Open a menu bar icon, even one macOS had no room for</td></tr>
+      <tr><th scope="row"><code>status</code></th><td>Whether the divider is hiding icons, and whether only the laptop screen is in use</td></tr>
+      <tr><th scope="row"><code>hide · show · toggle</code></th><td>Hide or show the icons left of the divider</td></tr>
+      <tr><th scope="row"><code>open</code></th><td>Open Coat Check, or its settings if it’s already running</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="bx-section compare-section" id="compare" aria-labelledby="compare-title">
+  <div class="bx-wrap">
+    <span class="bx-eyebrow">The other ways to do this</span>
+    <h2 id="compare-title">Mac menu bar managers, honestly compared</h2>
+    <p class="bx-intro">Coat Check exists because most of these tools were built to hide icons you choose. The icons macOS hides for lack of room are a different problem, and only some of them reach those. Here’s what each one does, checked on its own site on November 16, 2026.</p>
+    <div class="table-wrap compare-wrap">
+      <table class="compare">
+        <thead><tr><th scope="col"><span class="visually-hidden">Feature</span></th><th scope="col" class="us">Coat Check</th><th scope="col">macOS itself</th><th scope="col"><a href="/alternatives/bartender/">Bartender</a></th><th scope="col"><a href="/alternatives/ice/">Ice</a></th><th scope="col"><a href="/alternatives/hidden-bar/">Hidden Bar</a></th><th scope="col"><a href="/alternatives/vanilla/">Vanilla</a></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Main job</th><td class="us">Reach icons macOS hid</td><td>Turn icons off (26); an overflow arrow (27)</td><td>Hide, arrange and automate</td><td>Hide icons, show them in a second bar</td><td>Hide icons behind an arrow</td><td>Hide icons behind dots</td></tr>
+          <tr><th scope="row">Reach icons the notch hides</th><td class="us">Yes, in one list</td><td>Only on macOS 27, through the arrow</td><td>Yes, in the Bartender Bar</td><td>Yes, in the Ice Bar</td><td>Yes, by search (1.13, macOS 27)</td><td>No</td></tr>
+          <tr><th scope="row">Open an app’s menu from a list</th><td class="us">Yes</td><td>No</td><td>Search in the Command Bar</td><td>Item search</td><td>Search, then its menu (1.13)</td><td>No</td></tr>
+          <tr><th scope="row">Changes your layout</th><td class="us">Never</td><td>⌘-drag by hand</td><td>Yes, it arranges icons</td><td>Yes, drag and drop</td><td>You ⌘-drag icons past its arrow</td><td>You ⌘-drag icons past its dots</td></tr>
+          <tr><th scope="row">Triggers, profiles, hotkeys</th><td class="us">No; a command line instead</td><td>No</td><td>Yes</td><td>Hotkeys</td><td>Shortcuts, gestures</td><td>Hotkey with Pro</td></tr>
+          <tr><th scope="row">Needs Screen Recording</th><td class="us">No</td><td>Not needed</td><td>Optional</td><td>Not stated</td><td>No</td><td>Not stated</td></tr>
+          <tr><th scope="row">macOS 27</th><td class="us">27.0.1 works; 27.2 numbers icons</td><td>Built in</td><td>Bartender 7 is built for it</td><td>No release for it</td><td>Yes, from GitHub</td><td>Not stated</td></tr>
+          <tr><th scope="row">Source code</th><td class="us">Open (MIT)</td><td>No</td><td>No</td><td>Open (GPL-3.0)</td><td>Open (MIT)</td><td>No</td></tr>
+          <tr><th scope="row">Price</th><td class="us">Free</td><td>Free</td><td>Paid, 4-week trial</td><td>Free</td><td>Free</td><td>Free; Pro $10 once</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bx-grid compare-notes">
+      <article class="bx-card"><h3>Where they’re better</h3><p>Bartender does far more: triggers that show icons when your Wi‑Fi or power changes, profiles per display, and search. Ice and Hidden Bar are free and open source too, and hide the icons you pick, which Coat Check only does with its optional divider. On macOS 27, Apple’s own arrow and Hidden Bar 1.13’s search both reach icons the notch hides.</p></article>
+      <article class="bx-card"><h3>Where Coat Check fits</h3><p>No sections to set up and nothing moves. One click lists every icon, hidden ones first, and opens the app’s own menu right there. It runs alongside any of these, because it doesn’t touch your layout unless you turn on the divider.</p></article>
+      <article class="bx-card"><h3>Also worth knowing</h3><p>Ice’s last full release was 0.11.12 in October 2024; its fork <a href="/alternatives/thaw/">Thaw</a> is active, with Thaw 3 for macOS 27 in beta. Vanilla’s own help page says icons the notch hides are a macOS limit and suggests quitting apps to make room.</p></article>
+    </div>
+    <p class="compare-sources fine">Sources: <a href="https://www.macbartender.com/">macbartender.com</a>, <a href="https://github.com/jordanbaird/Ice">Ice on GitHub</a>, <a href="https://github.com/dwarvesf/hidden/releases">Hidden Bar releases</a>, <a href="https://matthewpalmer.net/vanilla/">Vanilla</a> and <a href="https://matthewpalmer.net/vanilla/vanilla-macbook-notch.html">its notch note</a>, <a href="https://github.com/thaw-app/Thaw">Thaw</a>, <a href="https://www.macstories.net/stories/macos-27-the-macstories-review/3/">MacStories on macOS 27’s overflow arrow</a>. <a href="/alternatives/">Every menu bar manager compared</a>.</p>
+  </div>
 </section>
 
 <section class="privacy bx-band" id="privacy" aria-labelledby="privacy-title">
