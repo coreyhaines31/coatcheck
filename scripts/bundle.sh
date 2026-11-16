@@ -14,10 +14,8 @@ cp "$BIN_DIR/CoatCheckCLI" "$APP/Contents/MacOS/coatcheck-cli"
 ditto "$BIN_DIR/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"
 install_name_tool -add_rpath @executable_path/../Frameworks "$APP/Contents/MacOS/CoatCheck"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
-mkdir -p dist/CoatCheck.iconset
-swiftc -O scripts/icon/main.swift -o .build/coatcheck-icon
-.build/coatcheck-icon dist/CoatCheck.iconset
-iconutil -c icns dist/CoatCheck.iconset -o "$APP/Contents/Resources/CoatCheck.icns"
+# The Brushed icon, exported from mac-app-kit icons/coat/coat.icns.
+cp Resources/CoatCheck.icns "$APP/Contents/Resources/CoatCheck.icns"
 codesign --force --sign "${CODESIGN_IDENTITY:--}" "$APP/Contents/MacOS/coatcheck-cli"
 codesign --force --sign "${CODESIGN_IDENTITY:--}" "$APP"
 printf 'Built %s/%s\n' "$PWD" "$APP"
