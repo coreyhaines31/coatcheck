@@ -2,6 +2,7 @@ import AppKit
 import Combine
 import SwiftUI
 import CoatCheckCore
+import PanelKit
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let preferences = Preferences()
@@ -16,6 +17,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        PanelFont.register()
         let menuBar = MenuBarController(preferences: preferences)
         menuBar.onOpenSettings = { [weak self] in self?.showSettings() }
         menuBar.onCheckForUpdates = { [weak self] in self?.checkForUpdates() }

@@ -1,7 +1,8 @@
 import AppKit
 import CoatCheckCore
+import PanelKit
 
-/// The hanger icon, which opens a menu of every menu bar icon, including the ones macOS had no room for.
+/// The bellows icon, which opens a menu of every menu bar icon, including the ones macOS had no room for.
 /// An optional divider to its left can also hide icons.
 final class MenuBarController: NSObject {
     private let toggle: NSStatusItem
@@ -23,7 +24,7 @@ final class MenuBarController: NSObject {
         toggle.autosaveName = StatusItemPlacement.iconName
         super.init()
         if let button = toggle.button {
-            button.image = NSImage(systemSymbolName: "hanger", accessibilityDescription: "Coat Check")
+            button.image = BellowsGlyph.folded
             button.target = self
             button.action = #selector(toggleClicked)
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -31,6 +32,11 @@ final class MenuBarController: NSObject {
             button.toolTip = "Coat Check: open any menu bar icon, even ones hidden by the notch"
         }
         setDividerEnabled(preferences.useDivider)
+    }
+
+    /// Opened out while the icons left of the divider show; folded while they're hidden or there's no divider.
+    private func updateGlyph() {
+        toggle.button?.image = divider != nil && !isHidden ? BellowsGlyph.open : BellowsGlyph.folded
     }
 
     // MARK: Divider
@@ -51,6 +57,7 @@ final class MenuBarController: NSObject {
             divider = nil
             isHidden = false
         }
+        updateGlyph()
     }
 
     /// Hides or returns the icons left of the divider. `byPerson` reveals start the auto-hide countdown.
@@ -81,6 +88,7 @@ final class MenuBarController: NSObject {
             if byPerson { scheduleAutoHide() }
         }
         isHidden = hidden
+        updateGlyph()
         return true
     }
 
@@ -107,9 +115,9 @@ final class MenuBarController: NSObject {
 
     // MARK: Menu
 
-    @objc private func toggleClicked() { showMenu() }
+    @MainActor @objc private func toggleClicked() { showMenu() }
 
-    private func showMenu() {
+    @MainActor private func showMenu() {
         let menu = NSMenu()
         mirrors = []
         if MenuBarItems.isTrusted {
@@ -117,6 +125,7 @@ final class MenuBarController: NSObject {
             let order = Overflow.alphabetical(listed.map { Overflow.displayName(app: $0.appName, label: $0.label).name })
             let hidden = order.filter { !listed[$0].isVisible }
             let shown = order.filter { listed[$0].isVisible }
+            menu.addItem(.panelCard(CoatCard(state: cardState(hidden: hidden.count, shown: shown.count))))
             if MenuBarItems.hidesOwners(listed) {
                 menu.addItem(.sectionHeader(title: "macOS 27.2 hides which app owns each icon"))
                 let why = menu.addItem(withTitle: "Why Icons Are Numbered…", action: #selector(explainHiddenOwners), keyEquivalent: "")
@@ -136,6 +145,7 @@ final class MenuBarController: NSObject {
                 shown.forEach { menu.addItem(menuItem(for: $0)) }
             }
         } else {
+            menu.addItem(.panelCard(CoatCard(state: MenuCardState(hasAccess: false))))
             menu.addItem(.sectionHeader(title: "See the icons the notch hides"))
             let allow = menu.addItem(withTitle: "Allow Accessibility Access…", action: #selector(allowAccess), keyEquivalent: "")
             allow.target = self
@@ -153,6 +163,20 @@ final class MenuBarController: NSObject {
         toggle.menu = menu
         toggle.button?.performClick(nil)
         toggle.menu = nil
+    }
+
+    /// How full the icon space is: every listed icon plus Coat Check's own, over the room right of the notch.
+    /// While the divider is folded away, the icons it hides on purpose don't count.
+    private func cardState(hidden: Int, shown: Int) -> MenuCardState {
+        let clear = MenuBarItems.clearArea()
+        let dividerHiding = divider != nil && isHidden
+        var widths = listed.filter { !dividerHiding || $0.isVisible }.map(\.frame.width)
+        widths.append(toggle.button?.window?.frame.width ?? 0)
+        if let divider, !isHidden { widths.append(divider.button?.window?.frame.width ?? 0) }
+        let measurable = clear.maxX > clear.from
+        return MenuCardState(hasAccess: true, shown: shown, hidden: hidden,
+                             fraction: measurable ? MenuBarSpace.fraction(widths: widths, clearFrom: clear.from, screenMaxX: clear.maxX) : nil,
+                             dividerHiding: dividerHiding, hasNotch: NSScreen.screens.first?.auxiliaryTopRightArea != nil)
     }
 
     private func menuItem(for index: Int) -> NSMenuItem {
@@ -232,9 +256,9 @@ final class MenuBarController: NSObject {
 
     private func explainDividerPlacement() {
         let alert = NSAlert()
-        alert.messageText = "Move the divider left of the hanger"
+        alert.messageText = "Move the divider left of the Coat Check icon"
         alert.informativeText = "Coat Check hides the icons to the left of its divider (│). "
-            + "Hold ⌘ and drag the divider so it sits just left of the hanger, then try again."
+            + "Hold ⌘ and drag the divider so it sits just left of the Coat Check icon, then try again."
         NSApp.activate(ignoringOtherApps: true)
         alert.runModal()
     }
