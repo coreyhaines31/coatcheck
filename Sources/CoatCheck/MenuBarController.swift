@@ -124,6 +124,7 @@ final class MenuBarController: NSObject {
             let order = Overflow.alphabetical(listed.map { Overflow.displayName(app: $0.appName, label: $0.label).name })
             let hidden = order.filter { !listed[$0].isVisible }
             let shown = order.filter { listed[$0].isVisible }
+            menu.addItem(.card(cardState(hidden: hidden.count, shown: shown.count)))
             if MenuBarItems.hidesOwners(listed) {
                 menu.addItem(.sectionHeader(title: "macOS 27.2 hides which app owns each icon"))
                 let why = menu.addItem(withTitle: "Why Icons Are Numbered…", action: #selector(explainHiddenOwners), keyEquivalent: "")
@@ -143,6 +144,7 @@ final class MenuBarController: NSObject {
                 shown.forEach { menu.addItem(menuItem(for: $0)) }
             }
         } else {
+            menu.addItem(.card(MenuCardState(hasAccess: false)))
             menu.addItem(.sectionHeader(title: "See the icons the notch hides"))
             let allow = menu.addItem(withTitle: "Allow Accessibility Access…", action: #selector(allowAccess), keyEquivalent: "")
             allow.target = self
@@ -160,6 +162,20 @@ final class MenuBarController: NSObject {
         toggle.menu = menu
         toggle.button?.performClick(nil)
         toggle.menu = nil
+    }
+
+    /// How full the icon space is: every listed icon plus Coat Check's own, over the room right of the notch.
+    /// While the divider is folded away, the icons it hides on purpose don't count.
+    private func cardState(hidden: Int, shown: Int) -> MenuCardState {
+        let clear = MenuBarItems.clearArea()
+        let dividerHiding = divider != nil && isHidden
+        var widths = listed.filter { !dividerHiding || $0.isVisible }.map(\.frame.width)
+        widths.append(toggle.button?.window?.frame.width ?? 0)
+        if let divider, !isHidden { widths.append(divider.button?.window?.frame.width ?? 0) }
+        let measurable = clear.maxX > clear.from
+        return MenuCardState(hasAccess: true, shown: shown, hidden: hidden,
+                             fraction: measurable ? MenuBarSpace.fraction(widths: widths, clearFrom: clear.from, screenMaxX: clear.maxX) : nil,
+                             dividerHiding: dividerHiding, hasNotch: NSScreen.screens.first?.auxiliaryTopRightArea != nil)
     }
 
     private func menuItem(for index: Int) -> NSMenuItem {
