@@ -3,11 +3,11 @@
 A free, open-source menu bar manager for macOS. When the notch or a crowded menu bar leaves no room, macOS quietly hides icons. Coat Check puts every one of them a click away.
 
 <p align="center">
-  <img src="docs/images/coatcheck-menu.png" width="720" alt="Illustration of the Coat Check menu under the hanger icon: icons with no room in the menu bar listed first, with Midnight Oil's own menu open beside it">
+  <img src="docs/images/coatcheck-menu.png" width="720" alt="Illustration of the Coat Check menu under its bellows icon: icons with no room in the menu bar listed first, with Midnight Oil's own menu open beside it">
 </p>
 
-- **Every icon, within reach.** Click the hanger to see all your menu bar icons, with the ones macOS had no room for at the top.
-- **Their real menus, right under the hanger.** For apps with a menu, Coat Check shows that menu as a submenu and clicks the item you choose for you.
+- **Every icon, within reach.** Click the Coat Check icon to see all your menu bar icons, with the ones macOS had no room for at the top.
+- **Their real menus, right under the Coat Check icon.** For apps with a menu, Coat Check shows that menu as a submenu and clicks the item you choose for you.
 - **Nothing moves.** Coat Check doesn't rearrange your menu bar or drag icons around.
 - **No telemetry.** Nothing leaves your Mac except Sparkle's update check.
 
@@ -21,23 +21,23 @@ brew install coreyhaines31/tap/coatcheck
 
 Needs an Apple silicon Mac. Tested on macOS 14 Sonoma through 26 Tahoe; macOS 27 support is being tested in [#24](https://github.com/coreyhaines31/coatcheck/issues/24). Coat Check updates itself.
 
-> **Known issue on macOS 27.2:** macOS 27.2 reports every menu bar icon as Apple's MenuBarAgent, with no app name or label, so Coat Check can't tell which app an icon belongs to. Coat Check 0.1.2 shows a list it can't name. The next version lists these icons as Icon 1, Icon 2… from left to right (`coatcheck click icon 3`) and says why. macOS 27.0.1 works. Follow [#24](https://github.com/coreyhaines31/coatcheck/issues/24) for app names.
+> **Known issue on macOS 27.2:** macOS 27.2 reports every menu bar icon as Apple's MenuBarAgent, with no app name or label, so Coat Check can't tell which app an icon belongs to. Coat Check 0.1.2 shows a list it can't name. Coat Check 0.2.0 lists these icons as Icon 1, Icon 2… from left to right (`coatcheck click icon 3`) and says why. macOS 27.0.1 works. Follow [#24](https://github.com/coreyhaines31/coatcheck/issues/24) for app names.
 
 ## How to use it
 
-Coat Check adds a hanger to the right end of your menu bar. Click it:
+Coat Check adds a small bellows icon to the right end of your menu bar. Click it:
 
 - **No room in the menu bar** lists the icons macOS is hiding, usually behind the notch. Hover one with a ▸ to see its menu, and choose an item.
 - **In the menu bar** lists the icons you can already see.
 - Icons without a ▸ (some apps show a panel instead of a menu) open where macOS put them.
 
-Coat Check needs **Accessibility** permission to list other apps' menu bar icons and click them. It reads nothing else. The first time you click the hanger, choose **Allow Accessibility Access…**, or turn it on in System Settings → Privacy & Security → Accessibility.
+Coat Check needs **Accessibility** permission to list other apps' menu bar icons and click them. It reads nothing else. The first time you click the Coat Check icon, choose **Allow Accessibility Access…**, or turn it on in System Settings → Privacy & Security → Accessibility.
 
-If the hanger itself ever ends up hidden, open Coat Check again from Finder or Spotlight and its settings window appears.
+If the Coat Check icon itself ever ends up hidden, open Coat Check again from Finder or Spotlight and its settings window appears.
 
 ### Optional: hide icons with a divider
 
-Turn on **Hide icons with a divider** in Settings to add a thin divider (│) left of the hanger. Icons to its left can be hidden to clear space: hold ⌘ and drag icons across it. With the divider on, you can also:
+Turn on **Hide icons with a divider** in Settings to add a thin divider (│) left of the Coat Check icon. Icons to its left can be hidden to clear space: hold ⌘ and drag icons across it. With the divider on, you can also:
 
 - **Hide them on the laptop screen**: hide them when the built-in display is the only one, and show them again when an external display connects.
 - **Hide them again** a few seconds after you show them.
@@ -58,7 +58,7 @@ Add `--json` for machine-readable output. `<name>` is an app name from `coatchec
 
 ## How it works
 
-Accessibility lists each running app's menu bar icons with their names and positions, which also works on macOS 26, where the window list reports every icon as Control Center's. An icon is hidden when it sits left of the notch, or left of the end of the app menus on screens without one. Most apps expose their icon's menu through Accessibility even while it's closed, so Coat Check rebuilds that menu under the hanger and presses the real item when you choose it.
+Accessibility lists each running app's menu bar icons with their names and positions, which also works on macOS 26, where the window list reports every icon as Control Center's. An icon is hidden when it sits left of the notch, or left of the end of the app menus on screens without one. Most apps expose their icon's menu through Accessibility even while it's closed, so Coat Check rebuilds that menu under the Coat Check icon and presses the real item when you choose it.
 
 ## Building
 
