@@ -219,7 +219,10 @@
     <p class="label">Command line</p>
     <h2 id="cli-title">Hidden icons, one command away.</h2>
     <p>The <code>coatcheck</code> command comes with the Homebrew install, or add it from Settings. Then you or your AI agent can list every menu bar icon and open the hidden ones from Terminal. Add <code>--json</code> for machine-readable output.</p>
+    <p>Names are forgiving: any case works, and so does the start of a name when it’s unique. When one app has several icons, use <code>"App: label"</code>. With the divider on, <code>coatcheck hide</code>, <code>show</code> and <code>toggle</code> control it, and <code>coatcheck status</code> says whether icons are hidden and whether only the laptop screen is in use.</p>
+    <p class="fine">The command talks to the running app on your Mac, with no network involved. It exits with 0 on success and 1 on an error or when Coat Check isn’t running, so scripts can check.</p>
   </div>
+  <div class="cli-terminals">
   <pre class="terminal glass-dark" aria-label="Example coatcheck session"><code><span class="prompt">$</span> coatcheck list
 <span class="hidden">*</span> Midnight Oil
 <span class="hidden">*</span> Disk Forecast (84 GB)
