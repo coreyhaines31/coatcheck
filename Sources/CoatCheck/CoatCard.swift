@@ -18,13 +18,11 @@ struct MenuCardState {
 }
 
 /// The Brushed card: a metal fascia with a "% used" meter of the menu bar's icon space, and a verdict.
-struct MenuCard: View {
+struct CoatCard: View {
     let state: MenuCardState
 
-    @Environment(\.colorScheme) private var colorScheme
-
     var body: some View {
-        VStack(spacing: 0) {
+        MenuCard(accent: PanelAccent.coatCheck) {
             if let fraction = state.fraction {
                 Fascia(nameplate: "Icons", timestamp: timestamp,
                        detail: state.hasNotch ? "Space before the notch" : "Space beside the app menus", label: "Menu bar") {
@@ -42,14 +40,6 @@ struct MenuCard: View {
             }
             Verdict(title, message: message, status: status, statusLabel: statusLabel)
         }
-        .background(PanelTheme.resolve(colorScheme).background)
-        .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 7, style: .continuous).strokeBorder(.black.opacity(0.12), lineWidth: 1))
-        .panelAccent(PanelAccent.coatCheck)
-        .padding(.horizontal, 5)
-        .padding(.top, 1)
-        .padding(.bottom, 5)
-        .frame(width: 340)
     }
 
     private var timestamp: String? {
@@ -83,16 +73,5 @@ struct MenuCard: View {
     static func spoken(_ fraction: Double) -> String {
         let percent = Int((fraction * 100).rounded())
         return percent > 100 ? "Full. The icons need \(percent) percent of the space" : "\(percent) percent used"
-    }
-}
-
-extension NSMenuItem {
-    /// A menu item that shows the Brushed card.
-    static func card(_ state: MenuCardState) -> NSMenuItem {
-        let host = NSHostingView(rootView: MenuCard(state: state))
-        host.setFrameSize(host.fittingSize)
-        let item = NSMenuItem()
-        item.view = host
-        return item
     }
 }

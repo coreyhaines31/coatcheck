@@ -1,5 +1,6 @@
 import AppKit
 import CoatCheckCore
+import PanelKit
 
 /// The bellows icon, which opens a menu of every menu bar icon, including the ones macOS had no room for.
 /// An optional divider to its left can also hide icons.
@@ -114,9 +115,9 @@ final class MenuBarController: NSObject {
 
     // MARK: Menu
 
-    @objc private func toggleClicked() { showMenu() }
+    @MainActor @objc private func toggleClicked() { showMenu() }
 
-    private func showMenu() {
+    @MainActor private func showMenu() {
         let menu = NSMenu()
         mirrors = []
         if MenuBarItems.isTrusted {
@@ -124,7 +125,7 @@ final class MenuBarController: NSObject {
             let order = Overflow.alphabetical(listed.map { Overflow.displayName(app: $0.appName, label: $0.label).name })
             let hidden = order.filter { !listed[$0].isVisible }
             let shown = order.filter { listed[$0].isVisible }
-            menu.addItem(.card(cardState(hidden: hidden.count, shown: shown.count)))
+            menu.addItem(.panelCard(CoatCard(state: cardState(hidden: hidden.count, shown: shown.count))))
             if MenuBarItems.hidesOwners(listed) {
                 menu.addItem(.sectionHeader(title: "macOS 27.2 hides which app owns each icon"))
                 let why = menu.addItem(withTitle: "Why Icons Are Numbered…", action: #selector(explainHiddenOwners), keyEquivalent: "")
@@ -144,7 +145,7 @@ final class MenuBarController: NSObject {
                 shown.forEach { menu.addItem(menuItem(for: $0)) }
             }
         } else {
-            menu.addItem(.card(MenuCardState(hasAccess: false)))
+            menu.addItem(.panelCard(CoatCard(state: MenuCardState(hasAccess: false))))
             menu.addItem(.sectionHeader(title: "See the icons the notch hides"))
             let allow = menu.addItem(withTitle: "Allow Accessibility Access…", action: #selector(allowAccess), keyEquivalent: "")
             allow.target = self
