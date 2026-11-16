@@ -21,7 +21,7 @@ brew install coreyhaines31/tap/coatcheck
 
 Needs an Apple silicon Mac. Tested on macOS 14 Sonoma through 26 Tahoe; macOS 27 support is being tested in [#24](https://github.com/coreyhaines31/coatcheck/issues/24). Coat Check updates itself.
 
-> **Known issue on macOS 27.2:** macOS 27.2 reports every menu bar icon as Apple's MenuBarAgent, with no app name or label, so Coat Check can't tell which app an icon belongs to. Coat Check 0.1.2 shows a list it can't name. The next version lists these icons as Icon 1, Icon 2… from left to right (`coatcheck click icon 3`) and says why. macOS 27.0.1 works. Follow [#24](https://github.com/coreyhaines31/coatcheck/issues/24) for app names.
+> **Known issue on macOS 27.2:** macOS 27.2 reports every menu bar icon as Apple's MenuBarAgent, with no app name or label, so Coat Check can't tell which app an icon belongs to. Coat Check 0.1.2 shows a list it can't name. Coat Check 0.2.0 lists these icons as Icon 1, Icon 2… from left to right (`coatcheck click icon 3`) and says why. macOS 27.0.1 works. Follow [#24](https://github.com/coreyhaines31/coatcheck/issues/24) for app names.
 
 ## How to use it
 
