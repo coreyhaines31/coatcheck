@@ -2,7 +2,7 @@ import XCTest
 @testable import CoatCheckCore
 
 final class MenuBarSpaceTests: XCTestCase {
-    // Corey's MacBook: the notch ends at x=956 on a 1728-point screen, leaving 772 points.
+    // A 16-inch MacBook Pro: the notch ends at x=956 on a 1728-point screen, leaving 772 points.
     func testShareOfTheRoomRightOfTheNotch() {
         XCTAssertEqual(MenuBarSpace.fraction(widths: [193, 193], clearFrom: 956, screenMaxX: 1728), 0.5, accuracy: 0.0001)
     }
