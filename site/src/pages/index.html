@@ -280,30 +280,67 @@ Opened Disk Forecast.</code></pre>
 <section class="privacy bx-band" id="privacy" aria-labelledby="privacy-title">
   <div class="wrap privacy-inner">
     <div>
-      <p class="label">Privacy</p>
+      <p class="label">Privacy and permissions</p>
       <h2 id="privacy-title">One permission, for one job.</h2>
+      <p class="privacy-side">The first time you click the Coat Check icon, it offers <strong>Allow Accessibility Access…</strong>, which opens System Settings → Privacy &amp; Security → Accessibility. Until you allow it, the menu says what it needs and nothing else happens.</p>
     </div>
     <div class="privacy-copy">
       <p>Coat Check asks for Accessibility so it can list other apps’ menu bar icons and click them for you. That’s all it uses it for.</p>
+      <h3>What it reads, only when you click the Coat Check icon</h3>
       <ul>
-        <li>No Screen Recording. Coat Check never captures your screen.</li>
-        <li>No analytics, accounts, or network calls, apart from checking for updates.</li>
-        <li>MIT-licensed and written from scratch, so you can read exactly what it does.</li>
+        <li>Each running app’s menu bar icons: the app’s name, the icon’s label, and where it sits.</li>
+        <li>The width of the front app’s menus, to know where icons can start showing.</li>
+        <li>The items in an icon’s menu, so it can show them as a submenu.</li>
       </ul>
+      <h3>What it never does</h3>
+      <ul class="never">
+        <li>No Screen Recording. Coat Check never captures your screen or draws copies of icons.</li>
+        <li>No keystroke or Input Monitoring access, and it doesn’t read your windows or documents.</li>
+        <li>No analytics, accounts, or network calls, apart from checking GitHub for updates.</li>
+        <li>No moving icons. It clicks only the icon or menu item you choose.</li>
+      </ul>
+      <p class="fine">MIT-licensed and written from scratch, so you can read exactly what it does. It shares no code with Ice, Thaw or other GPL-licensed menu bar managers.</p>
     </div>
   </div>
 </section>
 
-<section class="bx-section" id="why">
-  <div class="bx-wrap">
-    <div class="bx-maker">
-      <img src="/corey.jpg" alt="Corey Haines" width="76" height="76">
-      <div>
-        <span class="bx-strip">Why it exists</span>
-        <p>My MacBook's notch hides menu bar icons whenever I have too many apps open, and macOS gives no way to reach them. The menu bar managers I tried were built to hide more icons, not to get the hidden ones back. So I built the app I wanted: one click lists every icon, including the ones behind the notch, and opens them in place. And it's free.</p>
-        <cite>Corey Haines, maker of Coat Check and <a href="#apps">more free Mac apps</a></cite>
-      </div>
+<section class="bx-section free" id="free" aria-labelledby="free-title">
+  <div class="bx-wrap free-grid">
+    <div>
+      <span class="bx-eyebrow">Free and open source</span>
+      <h2 id="free-title">No price, no account, no subscription.</h2>
+      <p class="bx-intro">Coat Check is free, with no trial, no Pro tier and nothing to sign up for. I built it for my own MacBook and give it away.</p>
+      <p class="bx-intro">The code is on GitHub under the MIT license. Read it, build it yourself, or open an issue if an app’s icon doesn’t show up the way it should.</p>
     </div>
+    <div class="bx-grid free-cards">
+      <article class="bx-card"><h3>Signed and notarized</h3><p>Every release is signed with a Developer ID and notarized by Apple before it reaches you.</p></article>
+      <article class="bx-card"><h3>Updates itself</h3><p>Sparkle checks the appcast on each GitHub release and installs new versions in one click.</p></article>
+      <article class="bx-card"><h3>Easy to remove</h3><p>Quit it and drag it to the Trash, or run <code>brew uninstall --cask coatcheck</code>. Your menu bar is exactly as it was.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="bx-section specs" id="requirements" aria-labelledby="specs-title">
+  <div class="bx-wrap specs-grid">
+    <div class="news">
+      <span class="bx-eyebrow">Requirements</span>
+      <h2 id="specs-title">Coat Check system requirements</h2>
+      <h3>New in {{release}}</h3>
+      <ul>
+        <li>A new bellows menu bar icon, a new app icon, and a Brushed card at the top of the menu with the space gauge.</li>
+        <li>The menu lists icons alphabetically in both sections.</li>
+        <li>On macOS 27.2, which hides which app owns each icon, Coat Check lists them as Icon 1, Icon 2… from left to right and says why. <code>coatcheck click icon 3</code> opens the third.</li>
+      </ul>
+      <p class="fine"><a href="https://github.com/coreyhaines31/coatcheck/releases">All release notes on GitHub</a></p>
+    </div>
+    <dl class="spec-list">
+      <div><dt>Mac</dt><dd>Apple silicon. Intel Macs aren’t supported.</dd></div>
+      <div><dt>macOS</dt><dd>Tested on 14 Sonoma through 26 Tahoe. 27.0.1 works; on 27.2 icons are numbered instead of named.</dd></div>
+      <div><dt>Permission</dt><dd>Accessibility. No Screen Recording.</dd></div>
+      <div><dt>Download</dt><dd>2.9 MB DMG, or <code>brew install --cask coreyhaines31/tap/coatcheck</code></dd></div>
+      <div><dt>Starts</dt><dd>At login, on by default once it’s in Applications. Turn it off in Settings.</dd></div>
+      <div><dt>Keyboard</dt><dd>⌘, opens Settings and ⌘Q quits, from Coat Check’s menu.</dd></div>
+    </dl>
   </div>
 </section>
 
