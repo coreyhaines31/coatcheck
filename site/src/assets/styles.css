@@ -358,3 +358,7 @@ kbd {padding: 1px 6px; border-radius: 4px; background: var(--bx-field); box-shad
 .privacy-copy > p.fine {font-size: 14px}
 .news h3 {margin-top: 26px; font-size: 21px; font-weight: 600}
 .news h3 + ul {margin-top: 12px}
+@media (max-width: 640px) {
+  .compare-wrap table {min-width: 46rem}
+  .compare-wrap tbody th {width: 8.5rem}
+}
