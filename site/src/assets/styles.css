@@ -55,6 +55,32 @@ img {max-width: 100%}
 .cc-glyph.is-active {background: rgba(255,255,255,.18)}
 .cc-clock {font-variant-numeric: tabular-nums}
 @media (max-width: 520px) {.cc-left span:not(.cc-apple), .cc-left strong {display: none} .cc-notch {width: 34%}}
+.cc-count {justify-self: center; margin: 2px 0 10px; padding: 5px 11px; border-radius: 99px; font: 12px/1.2 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; color: #cfd0d1; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12)}
+.cc-count::before {content: "↑ "; opacity: .7}
+
+/* Hero submenus: a row's own menu opens beside it on hover, tap or keyboard, in the same light Brushed menu material. */
+.stage .has-sub {position: relative; cursor: default}
+.stage .has-sub:focus-visible {outline: 2px solid var(--bx-accent); outline-offset: 1px}
+.stage .sub {display: none; position: absolute; z-index: 4; top: -5px; right: calc(100% + 10px); width: 12.5rem; padding: 5px; border-radius: 8px; background: rgba(236,236,235,.98); color: #161616; text-align: left; box-shadow: 0 18px 40px rgba(0,0,0,.32), 0 0 0 .5px rgba(0,0,0,.35); cursor: default}
+.stage .sub hr {border: 0; border-top: 1px solid rgba(0,0,0,.12); margin: 5px 10px}
+.stage .sub-row {display: block; padding: 3px 10px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis}
+.stage .sub-row:hover {background: #2f63d3; color: #fff}
+.stage .sub-row.is-disabled, .stage .sub-row.is-disabled:hover {background: none; color: rgba(0,0,0,.45)}
+.stage .has-sub.is-open {background: #2f63d3; color: #fff}
+.stage .has-sub.is-open > .sub {display: block}
+@media (hover: hover) and (min-width: 641px) {
+  .stage .has-sub:hover > .sub {display: block}
+}
+/* With nothing hovered or opened, wide screens show one row open, as the menu looks mid-use. */
+@media (min-width: 1200px) {
+  .stage .nmenu:not(:hover):not(:has(.is-open)) .is-default {background: #2f63d3; color: #fff}
+  .stage .nmenu:not(:hover):not(:has(.is-open)) .is-default > .sub {display: block}
+}
+/* Phones: no room beside the menu, so the submenu stacks under its row. */
+@media (max-width: 640px) {
+  .stage .sub {position: static; grid-column: 1 / -1; width: auto; margin: 6px 0 2px 18px; box-shadow: 0 0 0 .5px rgba(0,0,0,.35), 0 4px 10px rgba(0,0,0,.18)}
+  .hover-hint {display: none}
+}
 
 /* Trust strip */
 .trust {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-block: 40px 0; padding-block: 0; list-style: none}
