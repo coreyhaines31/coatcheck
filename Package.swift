@@ -8,7 +8,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/sparkle-project/Sparkle", exact: "2.10.0"),
         // Brushed popover components.
-        .package(url: "https://github.com/coreyhaines31/panelkit", from: "0.2.0")
+        .package(url: "https://github.com/coreyhaines31/panelkit", from: "0.2.1")
     ],
     targets: [
         .target(name: "CoatCheckCore"),
