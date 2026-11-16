@@ -15,10 +15,10 @@ struct SettingsView: View {
         Form {
             Section {
                 HStack(alignment: .top, spacing: 14) {
-                    Image(systemName: "hanger")
-                        .font(.system(size: 28))
-                        .foregroundStyle(.tint)
-                        .frame(width: 40)
+                    Image(nsImage: NSApp.applicationIconImage)
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Every menu bar icon, within reach").font(.headline)
                         Text("When the notch or a crowded menu bar leaves no room, macOS quietly hides icons. "
