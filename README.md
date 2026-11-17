@@ -3,7 +3,7 @@
 A free, open-source menu bar manager for macOS. When the notch or a crowded menu bar leaves no room, macOS quietly hides icons. Coat Check puts every one of them a click away.
 
 <p align="center">
-  <img src="docs/images/coatcheck-menu.png" width="720" alt="Illustration of the Coat Check menu under its bellows icon: icons with no room in the menu bar listed first, with Midnight Oil's own menu open beside it">
+  <img src="docs/images/coatcheck-menu.png" width="720" alt="Illustration of the Coat Check menu under its bellows icon in the menu bar: a meter of menu bar space used, the 3 icons hidden by the notch listed first, and Midnight Oil's own menu open beside it">
 </p>
 
 - **Every icon, within reach.** Click the Coat Check icon to see all your menu bar icons, with the ones macOS had no room for at the top.
